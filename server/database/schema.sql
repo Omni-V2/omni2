@@ -1,82 +1,3 @@
--- CREATE DATABASE ecommerce;
--- USE ecommerce;
-
--- CREATE TABLE Products (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     productName VARCHAR(255) NOT NULL,
---     rating FLOAT DEFAULT 0,
---     price DECIMAL(10, 2) NOT NULL,
---     description TEXT,
---     available BOOLEAN DEFAULT TRUE,
---     imageUrl VARCHAR(255),
---     categories VARCHAR(255),
---     size VARCHAR(50),
---     colour VARCHAR(50)
--- );
-
-
--- CREATE TABLE Users (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     username VARCHAR(255) NOT NULL,
---     email VARCHAR(255) NOT NULL UNIQUE,
---     password VARCHAR(255) NOT NULL,
---     address VARCHAR(255),
---     firstName VARCHAR(255),
---     lastName VARCHAR(255),
---     role VARCHAR(255) DEFAULT 'user'
--- );
-
-
--- CREATE TABLE Wishlist (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     UserId INT,
---     postId INT,
---     FOREIGN KEY (UserId) REFERENCES Users(id),
---     FOREIGN KEY (postId) REFERENCES Products(id)
--- );
-
-
--- CREATE TABLE Coupon (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     code VARCHAR(255) NOT NULL UNIQUE
--- );
-
-
--- CREATE TABLE Cart (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     UserId INT,
---     postId INT,
---     total DECIMAL(10, 2) DEFAULT 0,
---     quantity INT DEFAULT 0,
---     FOREIGN KEY (UserId) REFERENCES Users(id),
---     FOREIGN KEY (postId) REFERENCES Products(id)
--- );
-
-ALTER TABLE users   
-
-ADD COLUMN createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-
-ALTER TABLE cart
-
-ADD COLUMN createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-
-ALTER TABLE coupon
-
-ADD COLUMN createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-
-ALTER TABLE products
-
-ADD COLUMN createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-
-ALTER TABLE Wishlist
-
-ADD COLUMN createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -113,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`users` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -142,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`products` (
     FOREIGN KEY (`UserId`)
     REFERENCES `ecommerce`.`users` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 97
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -153,21 +74,22 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `ecommerce`.`cart` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `UserId` INT NULL DEFAULT NULL,
-  `postId` INT NULL DEFAULT NULL,
+  `ProductId` INT NULL DEFAULT NULL,
   `total` DECIMAL(10,2) NULL DEFAULT '0.00',
   `quantity` INT NULL DEFAULT '0',
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `UserId` (`UserId` ASC) VISIBLE,
-  INDEX `postId` (`postId` ASC) VISIBLE,
+  INDEX `postId` (`ProductId` ASC) VISIBLE,
   CONSTRAINT `cart_ibfk_1`
     FOREIGN KEY (`UserId`)
     REFERENCES `ecommerce`.`users` (`id`),
   CONSTRAINT `cart_ibfk_2`
-    FOREIGN KEY (`postId`)
+    FOREIGN KEY (`ProductId`)
     REFERENCES `ecommerce`.`products` (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -188,24 +110,26 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `ecommerce`.`wishlist`
+-- Table `ecommerce`.`wishlists`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ecommerce`.`wishlist` (
+CREATE TABLE IF NOT EXISTS `ecommerce`.`wishlists` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `UserId` INT NULL DEFAULT NULL,
-  `postId` INT NULL DEFAULT NULL,
-  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `UserId` INT NOT NULL,
+  `ProductId` INT NOT NULL,
+  `createdAt` DATETIME NULL DEFAULT NULL,
+  `updatedAt` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `UserId` (`UserId` ASC) VISIBLE,
-  INDEX `postId` (`postId` ASC) VISIBLE,
-  CONSTRAINT `wishlist_ibfk_1`
+  INDEX `wishlists_ibfk_2` (`ProductId` ASC) VISIBLE,
+  CONSTRAINT `wishlists_ibfk_1`
     FOREIGN KEY (`UserId`)
-    REFERENCES `ecommerce`.`users` (`id`),
-  CONSTRAINT `wishlist_ibfk_2`
-    FOREIGN KEY (`postId`)
+    REFERENCES `ecommerce`.`users` (`id`)
+    ON UPDATE CASCADE,
+  CONSTRAINT `wishlists_ibfk_2`
+    FOREIGN KEY (`ProductId`)
     REFERENCES `ecommerce`.`products` (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
