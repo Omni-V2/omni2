@@ -1,20 +1,41 @@
+"use client"
 import Image from 'next/image'
 import Link from 'next/link';
+import { useState } from 'react';
+interface TabPage{
+  name:string;
+  href:string;
+}
 
-const tabPages = ['Home', 'Contact','About', 'Sign up'];
-const settings = ['Manage My Account', 'My Order', 'Logout'];
+interface Setting {
+  name:string;
+  href:string;
+}
+
+const tabPages:TabPage[]=[
+  {name:'Home',href:"/"},
+  {name:'Contact',href:"/contact"},
+  {name:'About',href:"/about"},
+  {name:'Sign up',href:"/signup"}
+
+]
+
+const settings: Setting[] = [
+  { name: 'Manage My Account', href: '/profile' },
+  { name: 'My Order', href: '/orders' },
+  { name: 'Logout', href: '/signIn' }
+];
 
 export default function Home() {
-
-
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
     <nav className="bg-white w-full ">
        <div className='flex items-center gap-2 h-10 bg-black text-white justify-center align-middle'>
             <h3 className='text-'>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</h3>
             <span className=' text-lg underline cursor-pointer ml-11'>Shop Now!</span>
-            <select name='English' className='absolute right-5 text-white bg-black'>
-                <option >English</option>
+            <select value='English' className='absolute right-5 text-white bg-black' title='Language Select'>
+              <option value='English'>English</option>
             </select>
         </div>
       <div className="flex w-full flex-wrap items-center justify-between px-3 h-[80px]">
@@ -27,23 +48,13 @@ export default function Home() {
               /></Link>
             
         </div>
-        <div className="justify-centre space-x-3 mr-[60px]">
-        <a
-              className="text-gray-600 hover:text-base hover:font-semibold hover:underline"
-              href="/products"
-              data-te-nav-link-ref
-              >Home</a>
-              <a
-                className="text-gray-600 hover:text-base hover:font-semibold hover:underline"
-                href=""
-                data-te-nav-link-ref
-                >About us</a>
-              <a
-                className="text-gray-600 hover:text-base hover:font-semibold hover:underline"
-                href="#"
-                data-te-nav-link-ref
-                >sign up</a>
-        </div>
+        {tabPages.map((tabPage) => (
+          <div className="justfy-centre space-x-3 mr-[60px]" key={tabPage.name}>
+            <Link href={tabPage.href}>
+              <span className="text-gray-600 hover:text-base hover:font-semibold hover:underline">{tabPage.name}</span>
+            </Link>
+          </div>
+        ))}
         <div className="relative flex items-center space-x-4 mr-[80px]">
         <div className="relative">
         <input
@@ -96,14 +107,31 @@ export default function Home() {
                 <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
                 </svg>
               </span>
-              <div className="relative flex cursor-pointer">
-              <img
-                src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
-                className="rounded-full w-10 h-10 hover:drop-shadow-xl hover:bg-gray-200"
-                alt="user avatar"
-                loading="lazy"/>
+              <div className="relative flex">
+              <button id="avatarButton" 
+              data-dropdown-toggle="userDropdown" 
+              data-dropdown-placement="bottom" 
+              className="w-10 h-10 rounded-full cursor-pointer"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+              <img className="w-8 h-8 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+              src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" 
+              alt="User dropdown" />
+            </button>
+            <div id="userDropdown" 
+            className={`absolute top-full left-0 z-40 ${isDropdownOpen ? '' : 'hidden'}`}>
+    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+      <div>Bonnie Green</div>
+      <div className="font-medium truncate">name@user.com</div>
+    </div>
+    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+      {settings.map((setting)=>(
+      <li key ={setting.name}>
+      <a href={setting.href ?? '#'} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{setting.name}</a>
+    </li>
+      ))}
+      </ul>
+</div>
                 </div>
-                
           </div>
           
       </div>
