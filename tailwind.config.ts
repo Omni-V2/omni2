@@ -14,6 +14,7 @@ const config: Config = {
       'back':'#a39ea4',
       'inputs':'#f5f5f5',
       'red':'#db4444',
+      'red-600':'#dc2626',
       'black':'#000000',
       'white': '#ffffff',
       'purple': '#3f3cbb',
