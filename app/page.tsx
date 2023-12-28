@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image'
 import Link from 'next/link';
+import Allsales from './comps/Allsales'
 import { useState } from 'react';
 interface TabPage{
   name:string;
@@ -30,6 +31,7 @@ export default function Home() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
+    <div>
     <nav className="bg-white w-full ">
        <div className='flex items-center gap-2 h-10 bg-black text-white justify-center align-middle'>
             <h3 className='text-'>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</h3>
@@ -168,13 +170,10 @@ export default function Home() {
            </div>
            </div>
       </div>
-        
            <hr id="hr-unique" className=' rotate-90 w-96 -mt-[300px] text-gray-300'/>
-          
-            
-   
-      
     </nav>
-    
+    <div className='mt-[350px]'><Allsales/></div>
+    </div>
+   
   )
 }
