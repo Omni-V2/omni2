@@ -111,7 +111,7 @@ export default function Home() {
       <div className='-mt-[50px]'>
       
            <div className=' flex justify-start m-11 gap-32 mt-[100px]'>
-           <div id="unique" className=''>
+           <div id="unique" >
           <h1>women's fashion </h1>
           <h1>men's fashion</h1>
           <h1>Electronics</h1>
