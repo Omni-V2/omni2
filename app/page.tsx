@@ -2,8 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link';
 import { useState,useEffect } from 'react';
-import Navbar from './comps/Navbar';
-
+import AllSales from './comps/Allsales'
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -23,7 +22,8 @@ export default function Home() {
  
 
   return (
-    <div className=''>
+    <>
+    <div >
       <hr className='text-gray-300'/>
       <div className='-mt-[50px]'>
       
@@ -50,9 +50,14 @@ export default function Home() {
            <hr id="hr-unique" className=' rotate-90 w-96 -mt-[300px] text-gray-300'/>
           
             
-   
       
-   
+      
+
     </div>
+    <div className='mt-[350px]'>
+    <AllSales/>
+    </div>
+ 
+    </>
   )
 }
