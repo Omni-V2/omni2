@@ -4,21 +4,21 @@ import Star from "../../public/star.svg";
 import axios from "axios";
 // import { useRouter } from 'next/router';
 
-// interface ProductAttributes {
-//   id: number;
-//   productName: string;
-//   rating: number;
-//   price: number;
-//   description?: string;
-//   sales: number;
-//   available: string;
-//   imageUrl?: string[];
-//   categories?: string[];
-//   size?: string;
-//   colour?: string;
-//   UserId: number;
-// }
-function ProductsDetails() {
+interface ProductAttributes {
+  id: number;
+  productName: string;
+  rating: number;
+  price: number;
+  description?: string;
+  sales: number;
+  available: string;
+  imageUrl?: string[];
+  categories?: string[];
+  size?: string;
+  colour?: string;
+  UserId: number;
+}
+function ProductsDetails({data}:any) {
   const number = [1,2,3,4,5]
   // const router = useRouter();
   // const { data } = router.query;
@@ -32,28 +32,34 @@ function ProductsDetails() {
             <div className="vertical_gallery flex flex-col gap-[10px]">
              
                 <img
-               
+               src={data.imageUrl}
                   alt=""
                   className=" w-60 h-60 flex justify-center items-center rounded-md object-contain "
                 />
                  <img
+                              src={data.imageUrl}
+
+               alt=""
+               className="w-60 h-60 justify-center items-center rounded-md object-contain "
+             />
+                   <img
+                                  src={data.imageUrl}
+
                
                alt=""
                className="w-60 h-60 justify-center items-center rounded-md object-contain "
              />
                    <img
-               
-               alt=""
-               className="w-60 h-60 justify-center items-center rounded-md object-contain "
-             />
-                   <img
-               
+                              src={data.imageUrl}
+
                alt=""
                className="w-60 h-60 justify-center items-center rounded-md object-contain "
              />
             </div>
             <div className="main_product h-[550px]   w-[450px]  b flex justify-center items-center rounded-md ">
               <img
+                             src={data.imageUrl}
+
                 alt=""
                 className="  bg -red border-black w-full"
               />
@@ -82,8 +88,9 @@ function ProductsDetails() {
                 <p id="reviews_counter" className="text-black opacity-50">(150 Reviews)</p>
                 <p id="availibilty" className="font-poppins text-base text-green-500 opacity-60 pl-4">In Stock</p>
               </div>
-              <p id="price" className="font-inter text-2xl">$price</p>
-              <p id="description" className="font-poppins text-base">desc</p>
+              <p id="price" className="font-inter text-2xl">$              {data.price}
+</p>
+              <p id="description" className="font-poppins text-base"> {data.description}</p>
             </div>
             <div className="buttons flex flex-col justify-start items-start">
               <div id="colorChoice" className="flex gap-20 justify-center items-center">
