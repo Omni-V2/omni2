@@ -47,7 +47,6 @@ export default function Home() {
         />  
            </div>
       </div>
-        
            <hr id="hr-unique" className=' rotate-90 w-96 -mt-[300px] text-gray-300'/>
           
             
