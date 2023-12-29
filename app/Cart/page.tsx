@@ -1,6 +1,7 @@
 
 "use client"
 import React, { useState } from 'react';
+import { MdDelete } from "react-icons/md";
 
 
 interface CartItem {
@@ -46,7 +47,7 @@ const Cart = () => {
                     type='number'
                   />
                   <h1 className='ml-20'>233$</h1>
-                  {/* <MdDelete className='ml-10 cursor-pointer' /> */}
+                  <MdDelete className='ml-10 cursor-pointer' />
                 </div>
              
       
