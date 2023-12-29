@@ -21,7 +21,7 @@ const SellerList = () => {
 
   return (
     <div>
-      <h1 className='m-0 font-light py-4 text-4xl text-center text-gray-900 dark:text-black'>Seller List</h1>
+      <h1 className='m-0 text-4xl tracking-tight font-extrabold text-center p-4'>Sellers List</h1>
       <table className='w-full m-2'>
         <thead>
           <tr>
