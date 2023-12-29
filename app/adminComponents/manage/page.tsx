@@ -85,7 +85,7 @@ const ProductList: React.FC<{ id: number }> = ({ id }) => {
     }
   };
 
-  console.log(newProduct);
+  console.log(newProduct,"éé");
 
   return (
     <div className="container mx-auto p-4 flex flex-col items-center">
