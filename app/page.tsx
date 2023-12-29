@@ -3,6 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { useState,useEffect } from 'react';
 import AllSales from './comps/Allsales'
+import BestSelling from './comps/BestSelling';
+import AllBestSales from './comps/AllBestSales';
+import AllHomeComponent from './comps/AllHomeComponent';
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -54,10 +57,17 @@ export default function Home() {
       
 
     </div>
-    <div className='mt-[350px]'>
+    {/* <div className='mt-[350px]'>
     <AllSales/>
+    </div>
     
+    <div  className='mt-[350px] mr-[100px]'>
+    <AllBestSales/>
+    </div> */}
+    <div className='mt-[350px]'>
+      <AllHomeComponent/>
     </div>
     </>
+
   )
 }
