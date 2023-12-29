@@ -4,7 +4,7 @@ import axios from 'axios';
 import { DataContext } from '../context';
 
 function WhishList({ user }: any) {
-  const [loggedId, setId] = useState(user.id);
+  const [loggedId, setId] = useState("");
   const [wish, setWish] = useState([]);
   const { handleAddToChartBtn, products }: any = useContext(DataContext);
 
