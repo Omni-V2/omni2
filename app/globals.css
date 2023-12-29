@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+#userDropdown{
+    background-color: gray;
+    backdrop-filter: blur(15px);    
+    }
