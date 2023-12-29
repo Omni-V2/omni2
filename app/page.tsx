@@ -56,8 +56,8 @@ export default function Home() {
     </div>
     <div className='mt-[350px]'>
     <AllSales/>
+    
     </div>
- 
     </>
   )
 }
