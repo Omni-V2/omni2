@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { useState,useEffect } from 'react';
 import AllSales from './comps/Allsales'
+import AllExplore from './comps/Allexplore';
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -48,17 +49,14 @@ export default function Home() {
            </div>
       </div>
            <hr id="hr-unique" className=' rotate-90 w-96 -mt-[300px] text-gray-300'/>
-          
-            
-      
-      
-
     </div>
     <div className='mt-[350px]'>
     <AllSales/>
-    
     </div>
- 
+    <div>
+      <AllExplore/>
+    </div>
+
     </>
   )
 }
