@@ -1,4 +1,5 @@
 import AllBestSales from "./AllBestSales";
+import AllBrowseBuy from "./AllBrowseBuy";
 import Product from "./Allsales";
 
 
@@ -7,6 +8,7 @@ const AllHomeComponent = () => {
         <div>
             <Product/>
             <AllBestSales/>
+            <AllBrowseBuy/>
         </div>
      );
 }
