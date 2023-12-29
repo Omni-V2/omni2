@@ -64,7 +64,7 @@ const Cart = () => {
                 <button className='ml-3 bg-red w-40 h-12 border rounded text-white text-sm'>Apply Coupon</button>
               </div>
       
-              <div className='float-right -mt-28 mr-56  shadow border-black border rounded w-80  text-start  '>
+              <div className='float-right -mt-28 mr-56  shadow border-black border rounded w-80 h-64  text-start  '>
                 <h1 className='ml-5 mt-2'>Cart Total</h1>
                 <h3 className='ml-5 mt-6'>Subtotal:$</h3>
                 <hr className='text-gray-300 w-5/6 text-center' />
@@ -72,7 +72,7 @@ const Cart = () => {
                 <hr className='text-gray-300 w-5/6' />
                 <h3 className='ml-5 mt-6'>Total: $</h3>
                 <button
-                  className='shadow border-gray-300 border rounded ml-20 bg-red text-white w-40 h-12 mt-4'
+                  className='shadow border-gray-300 border rounded ml-20 bg-red text-white w-48 h-12 mt-4'
                  
                 >
                   Proceed to checkout
