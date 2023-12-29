@@ -23,7 +23,7 @@ const Flash = () => {
     console.log("flash",products);
     
     return ( <div className='flex flex-row gap-10'>
-        {products.map((el:ProductType,i:number)=><Single key={i} data={el}/>)}
+        {products.filter((e:ProductType,i:number)=>e.sales!==0).map((el:ProductType,i:number)=><Single key={i} data={el}/>)}
     </div> );
 }
  
