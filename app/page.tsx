@@ -6,6 +6,7 @@ import AllSales from './comps/Allsales'
 import BestSelling from './comps/BestSelling';
 import AllBestSales from './comps/AllBestSales';
 import AllHomeComponent from './comps/AllHomeComponent';
+import AllExplore from './comps/Allexplore';
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -51,11 +52,6 @@ export default function Home() {
            </div>
       </div>
            <hr id="hr-unique" className=' rotate-90 w-96 -mt-[300px] text-gray-300'/>
-          
-            
-      
-      
-
     </div>
     {/* <div className='mt-[350px]'>
     <AllSales/>
@@ -67,6 +63,10 @@ export default function Home() {
     <div className='mt-[350px]'>
       <AllHomeComponent/>
     </div>
+    <div>
+      <AllExplore/>
+    </div>
+
     </>
 
   )
