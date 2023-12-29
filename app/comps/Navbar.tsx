@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import Contact from '../contact/page'
+import Profile from '../profile/page'
 interface TabPage{
     name:string;
     href:string;
