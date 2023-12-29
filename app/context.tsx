@@ -3,8 +3,20 @@ import { createContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 
 interface Product {
-  id:string,
-  name:string
+  id:number,
+  productName: string;
+  rating:number;
+  price:number;
+  description:string;
+  imageUrl:any;
+  categories:any;
+  size:string;
+  color:string;
+  sales:number;
+  available:string;
+  UserId:number;
+  createdAt:any;
+  updatedAt:any;
 }
 type ProductArray = Product[];
 interface DataProviderProps {
