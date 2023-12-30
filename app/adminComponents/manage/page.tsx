@@ -3,6 +3,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import Cloudinary from "../cloudinary/page";
+import AdminNavBar from "../adminNavBar/page";
 
 interface Product {
   id: number;
@@ -88,8 +89,10 @@ const ProductList: React.FC<{ id: number }> = ({ id }) => {
   console.log(newProduct,"éé");
 
   return (
+    <div className='flex flex-row'>
+    <AdminNavBar/>
     <div className="container mx-auto p-4 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">Product List</h1>
+      <h1 className='m-0 py-4 text-4xl font-extrabold text-center text-gray-900 dark:text-black'>Product List</h1>
       <button
         className="bg-blue-500 text-black  justify-center text-1xl font-bold   border-2 border-black py-2 px-4 rounded-xl  p-4"
         onClick={() => setShowAddForm(!showAddForm)}
@@ -200,37 +203,38 @@ const ProductList: React.FC<{ id: number }> = ({ id }) => {
       <table className='w-full m-2'>
         <thead>
           <tr  >
-            <th   className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4' >ID</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Name</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Rating</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Price</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Description</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Sales</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Available</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Categories</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Size</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Colour</th>
-            <th  className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>User ID</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5' >ID</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Name</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Rating</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Price</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Description</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Sales</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Available</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Categories</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Size</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Colour</th>
+            <th  className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>User ID</th>
           </tr>
         </thead>
         <tbody>
           {products.map((product,index) => (
-            <tr   className='hover:bg-gray-100' key={index}>
-              <td   className='py-2 px-4'>{product.id}</td>
-              <td  className='py-2 px-4'>{product.productName}</td>
-              <td className='py-2 px-4' >{product.rating}</td>
-              <td className='py-2 px-4'>{product.price}</td>
-              <td className='py-2 px-4'>{product.description}</td>
-              <td className='py-2 px-4'>{product.sales}</td>
-              <td className='py-2 px-4'>{product.available}</td>
-              <td className='py-2 px-4'>{product.categories}</td>
-              <td className='py-2 px-4'>{product.size}</td>
-              <td className='py-2 px-4' >{product.colour}</td>
-              <td className='py-2 px-4'>{product.UserId}</td>
+            <tr className='hover:bg-gray-100' key={index}>
+              <td className='text-base py-2 px-4'>{product.id}</td>
+              <td className='text-base py-2 px-4'>{product.productName}</td>
+              <td className='text-base py-2 px-4' >{product.rating}</td>
+              <td className='text-base py-2 px-4'>{product.price}</td>
+              <td className='text-base py-2 px-4'>{product.description}</td>
+              <td className='text-base py-2 px-4'>{product.sales}</td>
+              <td className='text-base py-2 px-4'>{product.available}</td>
+              <td className='text-base py-2 px-4'>{product.categories}</td>
+              <td className='text-base py-2 px-4'>{product.size}</td>
+              <td className='text-base py-2 px-4' >{product.colour}</td>
+              <td className='text-base py-2 px-4'>{product.UserId}</td>
             </tr>
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };
