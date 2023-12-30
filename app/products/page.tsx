@@ -105,12 +105,12 @@ function ProductsDetails({data}:any) {
                 <div className="cuantity_counter flex items-center">
                   <button id="minest" className="flex w-10 h-9 font-poppins text-2xl font-light  bg-red  justify-center items-center flex-shrink-0 border-r text-white border-red border-opacity-50">-</button>
                   <input
-                    style={{ color: "black" }}
-                    type="number"
-                    id="num"
-                    step="1"
-                    className="w-20 px-2 text-base border-t border-b border-red border-opacity-50   h-9"
-                  />
+                  type="number"
+                  id="num"
+                  step="1"
+                  className="w-20 px-2 text-base border-t border-b border-red border-opacity-50 h-9 text-black"
+                  placeholder="Enter a number"
+                  aria-label="Number Input"/>
                   <button id="plus" className="flex w-10 h-9 font-poppins text-2xl font-light   bg-red  justify-center items-center flex-shrink-0 text-white bg-red-500 border border-red border-opacity-50">+</button>
                 </div>
                 <button
