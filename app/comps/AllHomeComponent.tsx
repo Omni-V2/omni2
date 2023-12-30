@@ -5,7 +5,7 @@ import Product from "./Allsales";
 
 const AllHomeComponent = () => {
     return ( 
-        <div>
+        <div className="">
             <Product/>
             <AllBestSales/>
             <AllBrowseBuy/>
