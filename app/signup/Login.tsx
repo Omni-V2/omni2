@@ -2,12 +2,14 @@ import {useState} from "react"
 import axios from "axios"
 import { useAuth } from '../AuthContext';
 import Link from 'next/link'
-const Login = ({click,register,setId,userData,setToken}:any) => {
-    // const a = useAuth();
-   
+const Login = ({click,register,setId,userData}:any) => {
+  const auth = useAuth();
+  const { setToken } = auth;
+  
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const handleSubmit = async (event:any) => {
+
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const email= formData.get('email')
@@ -18,29 +20,42 @@ const Login = ({click,register,setId,userData,setToken}:any) => {
             email: email,
             password: password,
           });
-          const {token, id} = response.data;
-           console.log(response.data);
+          console.log(response,"response")
+          const {token, id,role} = response.data; 
+        
           if (id && token) {
-            const { token } = response.data;
+            console.log( id,token,role,"role")
+       
+           
+
+            // const { token } = response.data;
             setToken(token);
+        
             setErrorMessage('');
             setLoading(false);
             setId(id)
-            if(userData.role=="user"){
-                return <Link href="/adminComponents">Navigate to home</Link>
+            if(role==="user"){
+           
+              return(  
+              <div><Link href="/adminComponents">Dashboard</Link></div>
+              )
+             
             }
-            if(userData.role==="seller"){
+            if(role==="seller"){
                 return <Link href="/adminComponents">Navigate to seller</Link>
             }
-            if(userData.role==="admin"){
+            if(role==="admin"){
                 return <Link href="/adminComponents">Navigate to Admin</Link>;
             }
            
           } else {
+       
             setErrorMessage('Login failed. Please check your credentials.');
             setLoading(false);
           }
         } catch (error) {
+          console.log("rrrrr",error)
+
           setErrorMessage('Error during login. Please try again.');
           setLoading(false);
         }

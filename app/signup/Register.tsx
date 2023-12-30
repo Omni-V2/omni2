@@ -3,6 +3,7 @@ import axios from "axios"
 import Link from 'next/link'
 
 const Register = ({click,register,setId,setToken}:any) => {
+  
   const [successMessage, setSuccessMessage] = useState<String>('');
   const [errorMessage, setErrorMessage] = useState<String>('');
 
@@ -31,7 +32,7 @@ const Register = ({click,register,setId,setToken}:any) => {
      
 
      const {token}=response.data
-     console.log("dsrthn",response.data)
+    
       if (email && username && role && token) {
         setToken(token);
         setId(response.data.id);

@@ -1,3 +1,4 @@
+"use client"
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 
 interface AuthState {
@@ -36,16 +37,25 @@ interface AuthProviderProps {
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, { token: localStorage.getItem('token') || null });
+  const isClientSide = typeof window !== 'undefined';
+
+  const [state, dispatch] = useReducer(authReducer, {
+    token: isClientSide ? localStorage.getItem('token') || null : null,
+  });
 
   const setToken = (token: string) => {
-    localStorage.setItem('token', token);
-    dispatch({ type: 'SET_TOKEN', payload: token });
+    if (isClientSide) {
+      localStorage.setItem('token', token);
+      dispatch({ type: 'SET_TOKEN', payload: token });
+      console.log(token,"vbbbb")
+    }
   };
 
   const clearToken = () => {
-    localStorage.removeItem('token');
-    dispatch({ type: 'CLEAR_TOKEN' });
+    if (isClientSide) {
+      localStorage.removeItem('token');
+      dispatch({ type: 'CLEAR_TOKEN' });
+    }
   };
 
   return (
@@ -55,14 +65,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-const useAuth = (): any => {
+const useAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);
   if (!context) {
-console.log("err")
+    throw new Error('useAuth must be used within an AuthProvider');
   }
-  else 
   return context;
 };
 
 export { AuthProvider, useAuth };
-
