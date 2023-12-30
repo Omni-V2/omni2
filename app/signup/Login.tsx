@@ -54,8 +54,6 @@ const Login = ({click,register,setId,userData}:any) => {
             setLoading(false);
           }
         } catch (error) {
-          console.log("rrrrr",error)
-
           setErrorMessage('Error during login. Please try again.');
           setLoading(false);
         }
