@@ -18,6 +18,7 @@ interface Product {
   createdAt:any;
   updatedAt:any;
 }
+
 type ProductArray = Product[];
 interface DataProviderProps {
   children: ReactNode;  
