@@ -19,31 +19,31 @@ interface UserListProps {
 const UserListPage = ({ users }: UserListProps) => {
   return (
     <div>
-      <h1>Users List</h1>
-      <table>
+      <h1 className='m-0 font-light py-4 text-4xl font-extrabold text-center text-gray-900 dark:text-black'>Users List</h1>
+      <table className='border-collapse w-96% m-2%'>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>UserName</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Address</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Role</th>
+            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>ID</th>
+            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>UserName</th>
+            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Email</th>
+            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Password</th>
+            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Address</th>
+            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>First Name</th>
+            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Last Name</th>
+            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Role</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user: User) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>{user.password}</td>
-              <td>{user.address}</td>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.role}</td>
+            <tr key={user.id} className='hover:bg-rgba(0, 0, 0, 0.1)'>
+              <td className='py-2 px-4'>{user.id}</td>
+              <td className='py-2 px-4'>{user.username}</td>
+              <td className='py-2 px-4'>{user.email}</td>
+              <td className='py-2 px-4'>{user.password}</td>
+              <td className='py-2 px-4'>{user.address}</td>
+              <td className='py-2 px-4'>{user.firstName}</td>
+              <td className='py-2 px-4'>{user.lastName}</td>
+              <td className='py-2 px-4'>{user.role}</td>
             </tr>
           ))}
         </tbody>
@@ -52,23 +52,23 @@ const UserListPage = ({ users }: UserListProps) => {
   );
 };
 
-export async function getServerSideProps() {
-  try {
-    const response = await axios.get<User[]>('http://localhost:3000/api/users/getall');
-    const filteredUsers = response.data.filter((user) => user.role === 'user');
-    return {
-      props: {
-        users: filteredUsers,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    return {
-      props: {
-        users: [],
-      },
-    };
-  }
-}
+// export async function getServerSideProps() {
+//   try {
+//     const response = await axios.get<User[]>('http://localhost:3000/api/users/getall');
+//     const filteredUsers = response.data.filter((user) => user.role === 'user');
+//     return {
+//       props: {
+//         users: filteredUsers,
+//       },
+//     };
+//   } catch (error) {
+//     console.error('Error fetching users:', error);
+//     return {
+//       props: {
+//         users: [],
+//       },
+//     };
+//   }
+// }
 
 export default UserListPage;
