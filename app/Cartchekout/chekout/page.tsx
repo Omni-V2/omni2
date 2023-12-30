@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import AddresForm from '../addresFrom/page'
-import Paiment from '../paiment/page';
+import Payment from '../payment/page';
 import Review from '../Review/page';
 
 
@@ -37,7 +37,7 @@ function Copyright() {
       case 0:
         return <AddresForm />;
       case 1:
-        return <Paiment />;
+        return <Payment />;
       case 2:
         return <Review/>;
       default:
