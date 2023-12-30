@@ -84,16 +84,20 @@ const [password, setPassword] = useState("")
               // onChange={handleEmailChange}
               />
             </div>
+            <div className="flex gap-10 ml-[190px]">
             <button
               type="submit"
               className="py-2 px-4 font-semibold text-center text-white rounded bg-red w-[20px] h-[40px] sm:w-fit hover:bg-white  hover:text-red hover:focus:ring-4 focus:outline dark:focus:ring-primary-300 dark:bg-primary-600">
               Save changes
             </button>
+          
             <button
               type="submit"
-              className="bg-transparent hover:bg-red text-red font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-red-800 rounded">
+              className=" ml-[10px]bg-transparent hover:bg-red text-red font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-red-800 rounded">
               Cancel
             </button>
+            </div>
+            
           </form>
         </div>
       </section>
