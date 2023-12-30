@@ -37,15 +37,15 @@ const Login = ({click,register,setId,userData}:any) => {
             if(role==="user"){
            
               return(  
-              <div><Link href="/adminComponents">Dashboard</Link></div>
+              <div><Link href="/adminComponents">Dashboard</Link></div>//isn't this suppose to take the normal user to home? he is not allowed on dashboard
               )
              
             }
             if(role==="seller"){
-                return <Link href="/adminComponents">Navigate to seller</Link>
+                return <Link href="/adminComponents">Navigate to seller</Link>//Link here will be added after creating seller component
             }
             if(role==="admin"){
-                return <Link href="/adminComponents">Navigate to Admin</Link>;
+                return <Link href="/adminComponents">Navigate to Admin</Link>;//this is the right path for admin
             }
            
           } else {
