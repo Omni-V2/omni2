@@ -26,7 +26,7 @@ interface DataProviderProps {
 
 interface DataContextValue {
   oneProduct: Product;
-  setOneproduct: React.Dispatch<React.SetStateAction<{ categories: string }>>;
+  setOneproduct: React.Dispatch<React.SetStateAction<{}>>;
   products: ProductArray;
   cartList: any[]; 
   setCartList: React.Dispatch<React.SetStateAction<any[]>>;
