@@ -26,6 +26,7 @@ const config: Config = {
       'bermuda': '#78dcca',
       'gray':'#f5f5f5',
       'gray-300':'#cbd5e1',
+      'green':'#22c55e'
     },
     extend: {
       backgroundImage: {
