@@ -3,29 +3,29 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { DataContext } from '../context';
 
-function WhishList({ user }: any) {
+function WhishList() {
   const [loggedId, setId] = useState("");
   const [wish, setWish] = useState([]);
-  const { handleAddToChartBtn, products }: any = useContext(DataContext);
+  const { handleAddToChartBtn, products,user }: any = useContext(DataContext);
 
-//   useEffect(() => {
-//     axios
-//       .get(`http://localhost:3000/api/wish/${loggedId && loggedId}`)
-//       .then((result) => {
-//         const wishPromises = result.data.map((wish: any) => {
-//           return axios.get(`http://localhost:3000/api/products/${wish.ProductId}`);
-//         });
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/wish/${user.id}`)
+      .then((result) => {
+        const wishPromises = result.data.map((wish: any) => {
+          return axios.get(`http://localhost:3000/api/products/${wish.ProductId}`);
+        });
 
-//         Promise.all(wishPromises)
-//           .then((responses) => {
-//             const productsData: any = responses.map((response) => response.data);
-//             setWish(productsData);
-//           })
-//           .catch((err) => {
-//             console.error(err);
-//           });
-//       });
-//   }, []);
+        Promise.all(wishPromises)
+          .then((responses) => {
+            const productsData: any = responses.map((response) => response.data);
+            setWish(productsData);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      });
+  }, []);
 
   console.log('wishh', wish);
 

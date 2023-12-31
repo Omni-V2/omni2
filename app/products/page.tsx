@@ -28,6 +28,12 @@ function ProductsDetails({data}:any) {
   // const { data } = router.query;
   // const productData:ProductAttributes = data ? JSON.parse(data as string) : null;
   // console.log(productData,"data")
+  // const handleWishlistClick = () => {
+  //   console.log("datauss",dataUser);
+  //  axios.post("http://localhost:3000/api/addwish",{UserId:dataUser.id,ProductId:oneProduct.id})
+  //  .then((res)=>setShowAlert(true))
+  //  .catch((err)=>console.log(err))
+  // };
   return (
     <div>
       <div className="ProductDetails flex flex-col items-center gap-6 pb-6">
