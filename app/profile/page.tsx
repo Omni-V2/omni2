@@ -1,30 +1,74 @@
 "use client"
+import React , {useState,useEffect,useContext} from "react"
+import axios from 'axios'
+import { DataContext } from '../context';
 
-import React , {useState} from "react"
+const Profile = () => {//we need to pass users as props in main directory (import {useIdentity} from '')
+const [photo,setPhoto]=useState<string | null>(null)
+const[userName,setUserName]=useState<string>("");
+const [email, setEmail] = useState<string>("");
+const [password, setPassword] = useState<string>("")
+const [newPassword, setNewPassword] = useState<string | null>("")
+const {user, setUserId }:any=  useContext(DataContext)
 
 
+const handleUpdateProfile = async () =>{
+  const profileToUpdate:any ={
+    username:userName,
+    email:email,
+    password:password,
+  }
 
-const Profile = () => {
-const [photo,setPhoto]=useState("")
-const[fullName,setFullName]=useState("");
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("")
+try{
+  const update = await axios.put(`http://localhost:3000/api/users/${user.id}`,profileToUpdate);
+  console.log("Profile updated successfully", update.data)
+  alert("Profile updated successfully");
+}catch (error){
+  console.log("Error updating profile",error)
+  alert("Please try again.")
+};
+};
 
-// const handlephotoChange = (event) => {
-// setphoto(event.target.value);
-// };
-// const handleFullNameChange = (event) => {
-//   setFullName(event.target.value);
-// };
+const handleClickCancel = () => {
+  setUserName('');
+  setEmail('');
+  setPassword('');
+  setNewPassword('');
+};
 
-// const handleEmailChange = (event) => {
-//   setEmail(event.target.value);
-// };
+// const Cloudinary = () => {
+//   const cloudName: string = 'dcq9dwrsb';
+//   const presetName: string = 'l4ng65bl';
+//   const [image, setImage] = useState<string>('');
 
-// const handlePasswordChange = (event) => {
-//   setPassword(event.target.value);
-// };
+//   const handleUpload = async (file: File) => {
+//     const formData: FormData = new FormData();
+//     formData.append('file', file);
+//     formData.append('upload_preset', presetName);
 
+//     try {
+//       const response = await fetch(
+//         `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+//         {
+//           method: 'POST',
+//           body: formData,
+//         }
+//       );
+
+//       const data = await response.json();
+//       setImage(data.secure_url);
+//     } catch (error) {
+//       console.error('Error uploading image: ', error);
+//     }
+//   };
+
+//   const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+//   const files = event.target.files;
+//   if (files && files.length > 0) {
+//   await handleUpload(files[0]);
+//   }
+//   };
+// }
     return (
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
@@ -37,12 +81,12 @@ const [password, setPassword] = useState("")
           <form action="#" className="space-y-8">
             <div className="flex items-center space-x-6">
               <div className="shrink-0">
-                <img id='preview_img' className="h-16 w-16 object-cover rounded-full" src="https://lh3.googleusercontent.com/a-/AFdZucpC_6WFBIfaAbPHBwGM9z8SxyM1oV4wB4Ngwp_UyQ=s96-c" alt="Current profile photo" />
+                <img id='preview_img' className="h-16 w-16 object-cover rounded-full" src={photo || undefined || "https://res.cloudinary.com/ddznbll2o/image/upload/v1701780996/cld-sample.jpg"} alt="Current profile photo" />
                 </div>
                 <label className="block justfy-center space-x-6">
                   <span className="sr-only">Choose profile photo</span>
                   <input type="file" 
-                  // onchange="loadFile(event)" 
+                  //onChange={onChange}
                   className="block w-full justfy-center text-sm text-slate-500
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-full file:border-0
@@ -51,25 +95,37 @@ const [password, setPassword] = useState("")
                   </label>
                   </div>
           <div className="sm:col-span-2">
-              <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-600">
-                Your full name
+              <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-600">
+                Your username
               </label>
               <input
-                id="fullName"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-                placeholder="Full Name"
-                // onChange={handleFullNameChange}
+              id="password"
+              className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              placeholder="Full Name"
+              onChange={(e)=> setUserName(e.target.value)}
               ></input>
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-600">
-                Your new password
+              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-600">
+                Your password
               </label>
               <input
                 id="password"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
                 placeholder="password"
-              // onChange={handleEmailChange}
+                required
+              onChange={(e)=> setPassword(e.target.value)}
+              ></input>
+            </div>
+            <div className="sm:col-span-2">
+              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-600">
+                Your new password
+              </label>
+              <input
+              id="newPassword"
+              className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              placeholder="Full Name"
+              onChange={(e)=>{setNewPassword(e.target.value)}}
               ></input>
             </div>
             <div>
@@ -79,21 +135,25 @@ const [password, setPassword] = useState("")
               <input
                 type="email"
                 id="email"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
                 placeholder="name@flowbite.com"
-              // onChange={handleEmailChange}
+              onChange={(e)=> setEmail(e.target.value)}
               />
             </div>
             <div className="flex gap-10 ml-[190px]">
             <button
               type="submit"
-              className="py-2 px-4 font-semibold text-center text-white rounded bg-red w-[20px] h-[40px] sm:w-fit hover:bg-white  hover:text-red hover:focus:ring-4 focus:outline dark:focus:ring-primary-300 dark:bg-primary-600">
+              className="py-2 px-4 font-semibold text-center text-white rounded bg-red w-[20px] h-[40px] sm:w-fit hover:bg-white  hover:text-red hover:focus:ring-4 focus:outline dark:focus:ring-primary-300 dark:bg-primary-600"
+              onClick={()=>{handleUpdateProfile}}
+              >
               Save changes
             </button>
           
             <button
               type="submit"
-              className=" ml-[10px]bg-transparent hover:bg-red text-red font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-red-800 rounded">
+              className=" ml-[10px]bg-transparent hover:bg-red text-red font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-red-800 rounded"
+              onClick={()=>{handleClickCancel()}}
+              >
               Cancel
             </button>
             </div>
@@ -103,6 +163,5 @@ const [password, setPassword] = useState("")
       </section>
     );
   };
-  
+
   export default Profile;
-  

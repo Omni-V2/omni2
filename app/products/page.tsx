@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+"use client"
+import React, { useState,useContext } from "react";
 import Star from "../../public/star.svg";
-
+import { DataContext } from '../context'
 import axios from "axios";
 // import { useRouter } from 'next/router';
 
@@ -19,6 +20,9 @@ interface ProductAttributes {
   UserId: number;
 }
 function ProductsDetails({data}:any) {
+  const { oneProduct } = useContext(DataContext);
+  console.log("prod",oneProduct);
+  
   const number = [1,2,3,4,5]
   // const router = useRouter();
   // const { data } = router.query;
@@ -32,25 +36,25 @@ function ProductsDetails({data}:any) {
             <div className="vertical_gallery flex flex-col gap-[10px]">
              
                 <img
-              //  src={data.image}
+                 src={oneProduct&&oneProduct.imageUrl&&oneProduct.imageUrl[0]}
                   alt=""
                   className=" w-60 h-60 flex justify-center items-center rounded-md object-contain "
                 />
                  <img
-                              // src={data.imageUrl}
+                                src={oneProduct.imageUrl&&oneProduct.imageUrl[0]}
 
                alt=""
                className="w-60 h-60 justify-center items-center rounded-md object-contain "
              />
                    <img
-                                  // src={data.imageUrl}
+                                    src={oneProduct.imageUrl&&oneProduct.imageUrl[0]}
 
                
                alt=""
                className="w-60 h-60 justify-center items-center rounded-md object-contain "
              />
                    <img
-                              // src={data.imageUrl}
+                                src={oneProduct.imageUrl&&oneProduct.imageUrl[0]}
 
                alt=""
                className="w-60 h-60 justify-center items-center rounded-md object-contain "
@@ -58,7 +62,7 @@ function ProductsDetails({data}:any) {
             </div>
             <div className="main_product h-[550px]   w-[450px]  b flex justify-center items-center rounded-md ">
               <img
-                            //  src={data.imageUrl}
+                               src={oneProduct.imageUrl&&oneProduct.imageUrl[0]}
 
                 alt=""
                 className="  bg -red border-black w-full"
@@ -67,7 +71,7 @@ function ProductsDetails({data}:any) {
           </div>
           <div className="ProductDetails_Info w-96 flex flex-col gap-22">
             <div className="Details bg-transparent flex flex-col justify-start items-start gap-3 pb-10 border-b border-black">
-              <p id="Product_Title" className="font-inter text-2xl font-semibold line-height-24">name</p>
+              <p id="Product_Title" className="font-inter text-2xl font-semibold line-height-24">{oneProduct&&oneProduct.productName}</p>
               <div className="Details_reviews flex justify-start items-center gap-12">
                 <div id="reviews" className="flex justify-center items-center gap-3">
                   {number.map(()=>{
@@ -86,11 +90,11 @@ function ProductsDetails({data}:any) {
                 
                 </div>
                 <p id="reviews_counter" className="text-black opacity-50">(150 Reviews)</p>
-                <p id="availibilty" className="font-poppins text-base text-green-500 opacity-60 pl-4">In Stock</p>
+                <p id="availibilty" className="font-poppins text-base text-green-500 opacity-60 pl-4">{}</p>
               </div>
-              <p id="price" className="font-inter text-2xl">$              price
+              <p id="price" className="font-inter text-2xl">             {oneProduct&&oneProduct.price}Dt
 </p>
-              <p id="description" className="font-poppins text-base"> description</p>
+              <p id="description" className="font-poppins text-base"> {oneProduct&&oneProduct.description}</p>
             </div>
             <div className="buttons flex flex-col justify-start items-start">
               <div id="colorChoice" className="flex gap-20 justify-center items-center">
@@ -105,12 +109,12 @@ function ProductsDetails({data}:any) {
                 <div className="cuantity_counter flex items-center">
                   <button id="minest" className="flex w-10 h-9 font-poppins text-2xl font-light  bg-red  justify-center items-center flex-shrink-0 border-r text-white border-red border-opacity-50">-</button>
                   <input
-                  type="number"
-                  id="num"
-                  step="1"
-                  className="w-20 px-2 text-base border-t border-b border-red border-opacity-50 h-9 text-black"
-                  placeholder="Enter a number"
-                  aria-label="Number Input"/>
+                    style={{ color: "black" }}
+                    type="number"
+                    id="num"
+                    step="1"
+                    className="w-20 px-2 text-base border-t border-b border-red border-opacity-50   h-9"
+                  />
                   <button id="plus" className="flex w-10 h-9 font-poppins text-2xl font-light   bg-red  justify-center items-center flex-shrink-0 text-white bg-red-500 border border-red border-opacity-50">+</button>
                 </div>
                 <button
@@ -121,10 +125,10 @@ function ProductsDetails({data}:any) {
                 </button>
                 <div className="wishList flex w-10 h-10 p-1 border border-black border-opacity-50 rounded-md">
                 <svg  width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Wishlist">
-<path id="Vector"  fill="red" d="M11 7C8.239 7 6 9.216 6 11.95C6 14.157 6.875 19.395 15.488 24.69C15.6423 24.7839 15.8194 24.8335 16 24.8335C16.1806 24.8335 16.3577 24.7839 16.512 24.69C25.125 19.395 26 14.157 26 11.95C26 9.216 23.761 7 21 7C18.239 7 16 10 16 10C16 10 13.761 7 11 7Z" stroke="red" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+                  <g id="Wishlist">
+                    <path id="Vector"  fill="red" d="M11 7C8.239 7 6 9.216 6 11.95C6 14.157 6.875 19.395 15.488 24.69C15.6423 24.7839 15.8194 24.8335 16 24.8335C16.1806 24.8335 16.3577 24.7839 16.512 24.69C25.125 19.395 26 14.157 26 11.95C26 9.216 23.761 7 21 7C18.239 7 16 10 16 10C16 10 13.761 7 11 7Z" stroke="red" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    </svg>
                 </div>
               </div>
             </div>
