@@ -18,7 +18,7 @@ async function getAllProducts(req, res) {
   try {
     const limit = req.query.limit || 0
     const products = await Product.findAll({
-      limit: parseInt(limit, 10), 
+    limit: parseInt(limit, 10), 
     });
     res.json(products);
   } catch (error) {
