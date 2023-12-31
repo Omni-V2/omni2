@@ -43,9 +43,7 @@ const UserListPage = () => {
             <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>UserName</th>
             <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Email</th>
             <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Password</th>
-            <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Address</th>
-            <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>First Name</th>
-            <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Last Name</th>
+          
             <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Role</th>
           </tr>
         </thead>
@@ -56,9 +54,7 @@ const UserListPage = () => {
               <td className='text-base py-2 px-4'>{oneUser.username}</td>
               <td className='text-base py-2 px-4'>{oneUser.email}</td>
               <td className='text-base py-2 px-4'>{oneUser.password}</td>
-              <td className='text-base py-2 px-4'>{oneUser.address}</td>
-              <td className='text-base py-2 px-4'>{oneUser.firstName}</td>
-              <td className='text-base py-2 px-4'>{oneUser.lastName}</td>
+           
               <td className='text-base py-2 px-4'>{oneUser.role}</td>
             </tr>
           ))}
