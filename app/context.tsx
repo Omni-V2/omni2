@@ -18,7 +18,16 @@ interface Product {
   createdAt:any;
   updatedAt:any;
 }
-
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  address: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+}
 type ProductArray = Product[];
 interface DataProviderProps {
   children: ReactNode;  
@@ -45,6 +54,7 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [cartList, setCartList] = useState<any[]>([]);
   const [quantity, setQuantity] = useState(1);
   const [userId, setUserId] = useState<number | null>(null)
+  const [user,setUser]=useState<User>({})
   useEffect(() => {
     axios.get('http://localhost:3000/api/products', {
       params: {
@@ -57,7 +67,22 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     .catch((error) => {
       console.error(error);
     });
-  }, []);
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+       
+        setUser(response.data);
+        
+      } catch (error) {
+        console.error('Error fetching user data', error);
+      }
+    };
+    fetchUserData();
+  }, [userId]);
 
   const handleAddToChartBtn = (id: string, prod: Product) => {
     setCartList([...cartList, {
@@ -77,7 +102,8 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     setQuantity,
     handleAddToChartBtn,
     userId,
-    setUserId
+    setUserId,
+    user
   };
 
   return (
