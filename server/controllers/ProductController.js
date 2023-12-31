@@ -2,11 +2,14 @@ const Product = require('../database/product.js');
 
 // Create a new product
 async function createProduct(req, res) {
+  console.log(req.body)
   try {
     const newProduct = await Product.create(req.body);
+
     res.status(201).json(newProduct);
   } catch (error) {
     res.status(400).json({ error: error.message });
+    throw(error)
   }
 }
 
@@ -14,9 +17,7 @@ async function createProduct(req, res) {
 async function getAllProducts(req, res) {
   try {
     const limit = req.query.limit || 0
-    const products = await Product.findAll({
-      limit: parseInt(limit, 10), 
-    });
+    const products = await Product.findAll();
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
