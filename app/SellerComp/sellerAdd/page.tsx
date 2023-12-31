@@ -2,11 +2,12 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent,useContext } from "react";
 import axios from "axios";
 import Cloudinary from "@/app/adminComponents/cloudinary/page";
-import { DataContext } from "@/app/context";
+import { DataContext } from '../../context';
+import Link from "next/link";
+
 
 
 interface Product {
-   id:number,
     productName: string;
     rating: string;
     price: string;
@@ -21,11 +22,9 @@ interface Product {
   }
   
 const test = () => {
-
-  const {userId, setUserId }:any=  useContext(DataContext)
+  const {user, setUserId }:any=  useContext(DataContext)
     const [products, setProducts] = useState<Product[]>([]);
     const [newProduct, setNewProduct] = useState<Product>({
-      id:userId,
       productName: "",
       rating: "",
       price: "",
@@ -36,9 +35,9 @@ const test = () => {
       colour: "",
       sales: "",
       available: "",
-      UserId: userId,
+      UserId: user.id,
     });
-    console.log("idd",userId)
+   
  
     const handleSubmit = async (event: FormEvent) => {
       
@@ -50,7 +49,6 @@ const test = () => {
           
           setProducts(response.data);
           setNewProduct({
-            id:userId,
             productName: "",
             rating: "",
             price: "",
@@ -61,7 +59,7 @@ const test = () => {
             colour: "",
             sales: "",
             available: "",
-            UserId: userId,
+            UserId:0,
           });
           
         } catch (error) {
@@ -98,7 +96,9 @@ const test = () => {
           <Cloudinary setImg={setImg} />
           </div>
           <div>
+          <Link href={'/SellerComp/Manage'}>
           <button className="bg-red text-white font-bold py-2 px-4 rounded mt-4 ml-[450px]" type="submit" onClick={handleSubmit}>Add</button>
+          </Link>
 
           </div>
         </div>
