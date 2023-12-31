@@ -18,7 +18,16 @@ interface Product {
   createdAt:any;
   updatedAt:any;
 }
-
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  address: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+}
 type ProductArray = Product[];
 interface DataProviderProps {
   children: ReactNode;  
@@ -26,13 +35,15 @@ interface DataProviderProps {
 
 interface DataContextValue {
   oneProduct: Product;
-  setOneproduct: React.Dispatch<React.SetStateAction<{ categories: string }>>;
+  setOneproduct: React.Dispatch<React.SetStateAction<{}>>;
   products: ProductArray;
   cartList: any[]; 
   setCartList: React.Dispatch<React.SetStateAction<any[]>>;
   quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   handleAddToChartBtn: (id: string, prod: Product) => void;
+  userId: number | null;
+  setUserId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 const DataContext = createContext<DataContextValue | undefined>(undefined);
@@ -42,7 +53,8 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [products, setProducts] = useState<ProductArray>([]);
   const [cartList, setCartList] = useState<any[]>([]);
   const [quantity, setQuantity] = useState(1);
-
+  const [userId, setUserId] = useState<number | null>(null)
+  const [user,setUser]=useState<User>({})
   useEffect(() => {
     axios.get('http://localhost:3000/api/products', {
       params: {
@@ -55,7 +67,22 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     .catch((error) => {
       console.error(error);
     });
-  }, []);
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+       
+        setUser(response.data);
+        
+      } catch (error) {
+        console.error('Error fetching user data', error);
+      }
+    };
+    fetchUserData();
+  }, [userId]);
 
   const handleAddToChartBtn = (id: string, prod: Product) => {
     setCartList([...cartList, {
@@ -74,6 +101,9 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     quantity,
     setQuantity,
     handleAddToChartBtn,
+    userId,
+    setUserId,
+    user
   };
 
   return (

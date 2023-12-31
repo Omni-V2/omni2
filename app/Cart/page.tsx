@@ -24,7 +24,7 @@ interface CartPageProps {
 const Cart = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [showOrder, setShowOrder] = useState(false);
-  const { cartList, setCartList } = useContext(DataContext);
+  const { cartList, setCartList,user } = useContext(DataContext);
   const [notification, setNotification] = useState<string>('');
   const [couponCode, setCouponCode] = useState<string>('');
   const [discount, setDiscount] = useState<number>(0);
@@ -48,10 +48,14 @@ const Cart = () => {
 
   const calculateSubtotal = () => {
     return cartList.reduce((acc, cartItem) => {
-      return acc + cartItem.product.price * cartItem.quantity;
+      if (cartItem.product && cartItem.product.price) {
+        return acc + cartItem.product.price * cartItem.quantity;
+      } else {
+        console.error("Invalid product data:", cartItem);
+        return acc;
+      }
     }, 0);
   };
-
   const checkout = () => {
     const axiosRequests = cartList.map((e, i) =>
       axios.post('http://localhost:3000/api/cart', {
@@ -97,12 +101,12 @@ const Cart = () => {
               </div>
       
                 {cartList.map((cartItem,i)=>(
-                   <div
+                   <div key={i} 
                    className='grid grid-cols-4 mt-10 shadow items-center h-14 w-5/6 '
                    style={{ display: 'flex', justifyContent: 'space-around' }}
                  >
-                   <img className='w-10 ml-10' src='df' alt='' />
-                   <h1 className='ml-10'>234</h1>
+                   <img className='w-10 ml-10' src={cartItem.product.productName} alt='' />
+                   <h1 className='ml-10'>{cartItem.product.price}Dt</h1>
                    <input
                      className='w-10 ml-10 border-gray-300 border rounded'
                      type='number'
@@ -111,7 +115,7 @@ const Cart = () => {
                        handleQuantityChange(cartItem.product.id, parseInt(e.target.value))
                      }
                    />
-                   <h1 className='ml-20'>233$</h1>
+                   <h1 className='ml-20'>{cartItem.product.price * cartItem.quantity}Dt</h1>
                    <MdDelete className='ml-10 cursor-pointer' />
                  </div>
                 ))}
@@ -139,9 +143,9 @@ const Cart = () => {
       
               <div className='float-right -mt-28 mr-56  shadow border-black border rounded w-80 h-64  text-start  '>
                 <h1 className='ml-5 mt-2'>Cart Total</h1>
-                <h3 className='ml-5 mt-6'>Subtotal:$</h3>
+                <h3 className='ml-5 mt-6'>Subtotal:{calculateSubtotal()}$</h3>
                 <hr className='text-gray-300 w-5/6 text-center' />
-                <h3 className='ml-5 mt-6'>Shipping: Free</h3>
+                <h3 className='ml-5 mt-6'>Shipping: 7 Dt</h3>
                 <hr className='text-gray-300 w-5/6' />
                 <h3 className='ml-5 mt-6'>Total:{calculateSubtotal()} $</h3>
                 <Link href={'/Cartchekout/chekout'}>

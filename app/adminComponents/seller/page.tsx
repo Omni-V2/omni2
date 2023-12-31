@@ -21,7 +21,7 @@ const SellerList = () => {
     const fetchSellers = async () => {
       try {
         const response = await axios.get<Seller[]>('http://localhost:3000/api/users/getall');
-        const filteredSellers = response.data.filter((user: any) => user.role === 'seller'); 
+        const filteredSellers = response.data.filter((user: Seller) => user.role === 'seller'); 
         setSellers(filteredSellers);
       } catch (error) {
         console.error('Error fetching sellers:', error);
@@ -43,23 +43,18 @@ const SellerList = () => {
             <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>UserName</th>
             <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Email</th>
             <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Password</th>
-            <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Address</th>
-            <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>First Name</th>
-            <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Last Name</th>
             <th className='text-left font-semibold text-lg uppercase border-b border-gray-300 py-3 px-5'>Role</th>
           </tr>
         </thead>
         <tbody>
-          {sellers.map((seller: Seller) => (
-            <tr key={seller.id} className='hover:bg-gray-100'>
-              <td className='text-base py-2 px-4'>{seller.id}</td>
-              <td className='text-base py-2 px-4'>{seller.username}</td>
-              <td className='text-base py-2 px-4'>{seller.email}</td>
-              <td className='text-base py-2 px-4'>{seller.password}</td>
-              <td className='text-base py-2 px-4'>{seller.address}</td>
-              <td className='text-base py-2 px-4'>{seller.firstName}</td>
-              <td className='text-base py-2 px-4'>{seller.lastName}</td>
-              <td className='text-base py-2 px-4'>{seller.role}</td>
+          {sellers.map((Oneseller: Seller) => (
+            <tr key={Oneseller.id} className='hover:bg-gray-100'>
+              <td className='text-base py-2 px-4'>{Oneseller.id}</td>
+              <td className='text-base py-2 px-4'>{Oneseller.username}</td>
+              <td className='text-base py-2 px-4'>{Oneseller.email}</td>
+              <td className='text-base py-2 px-4'>{Oneseller.password}</td>
+             
+              <td className='text-base py-2 px-4'>{Oneseller.role}</td>
             </tr>
           ))}
         </tbody>

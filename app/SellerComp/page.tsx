@@ -1,3 +1,4 @@
+import Link from 'next/link';
 const Page = () => {
     return ( 
     <div className="w-full flex justify-center items-center ">
@@ -7,10 +8,10 @@ const Page = () => {
             <img className="w-[]" src="https://shorturl.at/luIO6" alt="" />
             <div className="flex flex-row gap-48">
             <div className="w-[234px] h-[56px]">
-        <button className="bg-red text-white w-full h-full rounded-md"><a href="/SellerComp/Manage">Manage Products</a></button>
+        <button className="bg-red text-white w-full h-full rounded-md"><Link href="/SellerComp/Manage">Manage Products</Link></button>
     </div>
     <div className="w-[234px] h-[56px]">
-        <button className="bg-red text-white w-full h-full rounded-md"> <a href="SellerComp/sellerAdd" >Add Product</a> </button>
+        <button className="bg-red text-white w-full h-full rounded-md"> <Link href="SellerComp/sellerAdd" >Add Product</Link> </button>
     </div>
             </div>
         </div>
