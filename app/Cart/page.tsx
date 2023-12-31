@@ -24,7 +24,7 @@ interface CartPageProps {
 const Cart = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [showOrder, setShowOrder] = useState(false);
-  const { cartList, setCartList } = useContext(DataContext);
+  const { cartList, setCartList,user } = useContext(DataContext);
   const [notification, setNotification] = useState<string>('');
   const [couponCode, setCouponCode] = useState<string>('');
   const [discount, setDiscount] = useState<number>(0);
@@ -46,11 +46,11 @@ const Cart = () => {
     return discountedTotal;
   };
 
-  const calculateSubtotal = () => {
-    return cartList.reduce((acc, cartItem) => {
-      return acc + cartItem.product.price * cartItem.quantity;
-    }, 0);
-  };
+  // const calculateSubtotal = () => {
+  //   return cartList.reduce((acc, cartItem) => {
+  //     return acc + cartItem.product.price * cartItem.quantity;
+  //   }, 0);
+  // };
 
   const checkout = () => {
     const axiosRequests = cartList.map((e, i) =>
@@ -143,7 +143,7 @@ const Cart = () => {
                 <hr className='text-gray-300 w-5/6 text-center' />
                 <h3 className='ml-5 mt-6'>Shipping: Free</h3>
                 <hr className='text-gray-300 w-5/6' />
-                <h3 className='ml-5 mt-6'>Total:{calculateSubtotal()} $</h3>
+                {/* <h3 className='ml-5 mt-6'>Total:{calculateSubtotal()} $</h3> */}
                 <Link href={'/Cartchekout/chekout'}>
                 <button
                   className='shadow border-gray-300 border rounded ml-20 bg-red text-white w-48 h-12 mt-4'
