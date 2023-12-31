@@ -33,6 +33,8 @@ interface DataContextValue {
   quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   handleAddToChartBtn: (id: string, prod: Product) => void;
+  userId: number | null;
+  setUserId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 const DataContext = createContext<DataContextValue | undefined>(undefined);
@@ -42,7 +44,7 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [products, setProducts] = useState<ProductArray>([]);
   const [cartList, setCartList] = useState<any[]>([]);
   const [quantity, setQuantity] = useState(1);
-
+  const [userId, setUserId] = useState<number | null>(null)
   useEffect(() => {
     axios.get('http://localhost:3000/api/products', {
       params: {
@@ -74,6 +76,8 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     quantity,
     setQuantity,
     handleAddToChartBtn,
+    userId,
+    setUserId
   };
 
   return (

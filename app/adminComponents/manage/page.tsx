@@ -6,16 +6,16 @@ import Cloudinary from "../cloudinary/page";
 import AdminNavBar from "../adminNavBar/page";
 
 interface Product {
-  id: number;
+  
   productName: string;
-  rating: string;
-  price: string;
+  rating: number;
+  price: number;
   description: string;
   imageUrl: string[];
   categories: string[];
   size: string;
   colour: string;
-  sales: string;
+  sales: number;
   available: string;
   UserId: number;
 }
@@ -23,16 +23,16 @@ interface Product {
 const ProductList: React.FC<{ id: number }> = ({ id }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [newProduct, setNewProduct] = useState<Product>({
-    id: 0,
+    
     productName: "",
-    rating: "",
-    price: "",
+    rating: 0,
+    price: 0,
     description: "",
     imageUrl: [],
     categories: [],
     size: "",
     colour: "",
-    sales: "",
+    sales: 0,
     available: "",
     UserId: 0,
   });
@@ -54,29 +54,31 @@ const ProductList: React.FC<{ id: number }> = ({ id }) => {
 
     fetchProducts();
   }, []);
-
+console.log(products,"array")
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setNewProduct({ ...newProduct, [name]: value });
   };
 
   const handleSubmit = async (event: FormEvent) => {
+    console.log(newProduct,"new")
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/products", newProduct);
+     const res= await axios.post("http://localhost:3000/api/products", newProduct);
+      console.log(res.data)
       const response = await axios.get("http://localhost:3000/api/products");
       setProducts(response.data);
       setNewProduct({
-        id: 0,
+        
         productName: "",
-        rating: "",
-        price: "",
+        rating: 0,
+        price: 0,
         description: "",
         imageUrl: [],
         categories: [],
         size: "",
         colour: "",
-        sales: "",
+        sales: 0,
         available: "",
         UserId: 0,
       });
@@ -101,14 +103,7 @@ const ProductList: React.FC<{ id: number }> = ({ id }) => {
       </button>
       {showAddForm && (
         <form onSubmit={handleSubmit} className="mt-4">
-          <input
-            type="number"
-            name="id"
-            placeholder="Product ID"
-            value={newProduct.id}
-            onChange={handleInputChange}
-            className="border p-2 mt-2"
-          />
+        
           <input
             type="text"
             name="productName"
@@ -219,7 +214,7 @@ const ProductList: React.FC<{ id: number }> = ({ id }) => {
         <tbody>
           {products.map((product,index) => (
             <tr className='hover:bg-gray-100' key={index}>
-              <td className='text-base py-2 px-4'>{product.id}</td>
+              <td className='text-base py-2 px-4'>{index+1}</td>
               <td className='text-base py-2 px-4'>{product.productName}</td>
               <td className='text-base py-2 px-4' >{product.rating}</td>
               <td className='text-base py-2 px-4'>{product.price}</td>
