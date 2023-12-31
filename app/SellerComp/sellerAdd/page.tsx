@@ -1,13 +1,13 @@
 "use client"
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent,useContext } from "react";
 import axios from "axios";
 import Cloudinary from "@/app/adminComponents/cloudinary/page";
+import { DataContext } from "@/app/context";
 
 
 
 
 interface Product {
-    id: number;
     productName: string;
     rating: string;
     price: string;
@@ -21,11 +21,11 @@ interface Product {
     UserId: number;
   }
   
-const test = () => {
-  
+const test = ({id}) => {
+
+    const { userId, setUserId } = useContext(DataContext);
     const [products, setProducts] = useState<Product[]>([]);
     const [newProduct, setNewProduct] = useState<Product>({
-      id: 0,
       productName: "",
       rating: "",
       price: "",
@@ -36,18 +36,18 @@ const test = () => {
       colour: "",
       sales: "",
       available: "",
-      UserId: 0,
+      UserId: userId,
     });
-    
-
+    console.log("idd",userId)
+   
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
+        console.log("hello",newProduct)
         try {
           await axios.post("http://localhost:3000/api/products", newProduct);
           const response = await axios.get("http://localhost:3000/api/products");
           setProducts(response.data);
           setNewProduct({
-            id: 0,
             productName: "",
             rating: "",
             price: "",
@@ -58,7 +58,7 @@ const test = () => {
             colour: "",
             sales: "",
             available: "",
-            UserId: 0,
+            UserId: userId,
           });
           
         } catch (error) {

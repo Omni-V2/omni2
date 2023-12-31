@@ -14,9 +14,7 @@ async function createProduct(req, res) {
 async function getAllProducts(req, res) {
   try {
     const limit = req.query.limit || 0
-    const products = await Product.findAll({
-      limit: parseInt(limit, 10), 
-    });
+    const products = await Product.findAll();
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
