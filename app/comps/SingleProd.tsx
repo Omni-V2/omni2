@@ -14,7 +14,7 @@ export default function Single({data}) {
       <div className="relative">
 
      
-          <ProdImage img={data.imageUrl} sales={data.sales}/>
+          <ProdImage img={data.imageUrl} sales={data.sales} prod={data}/>
           <Addtochart />
          
       </div>
