@@ -18,13 +18,14 @@ interface Product {
   createdAt:any;
   updatedAt:any;
 }
+
 type ProductArray = Product[];
 interface DataProviderProps {
   children: ReactNode;  
 }
 
 interface DataContextValue {
-  oneProduct: { categories: string };
+  oneProduct: Product;
   setOneproduct: React.Dispatch<React.SetStateAction<{ categories: string }>>;
   products: ProductArray;
   cartList: any[]; 
@@ -37,7 +38,7 @@ interface DataContextValue {
 const DataContext = createContext<DataContextValue | undefined>(undefined);
 
 const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
-  const [oneProduct, setOneproduct] = useState<{ categories: string }>({ categories: "electronics" });
+  const [oneProduct, setOneproduct] = useState<Product>({});
   const [products, setProducts] = useState<ProductArray>([]);
   const [cartList, setCartList] = useState<any[]>([]);
   const [quantity, setQuantity] = useState(1);

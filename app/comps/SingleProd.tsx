@@ -13,10 +13,10 @@ export default function Single({data}) {
       <div className="flex flex-col gap-2">
       <div className="relative">
 
-      <Link href={{ pathname: '/products', query: { data: JSON.stringify(data) } }}>
-          <ProdImage img={data.imageUrl} sales={data.sales}/>
+     
+          <ProdImage img={data.imageUrl} sales={data.sales} prod={data}/>
           <Addtochart />
-          </Link>
+         
       </div>
       <div className="flex flex-col gap-2">
           <h2>{data.productName}</h2>
