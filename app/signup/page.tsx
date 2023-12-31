@@ -1,10 +1,12 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import Login from "./Login";
 import Register from './Register';
+import { DataContext } from '../context';
 const page = () => {
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
-    const [userId, setUserId] = useState<number | null>(null);
+    const {userId, setUserId }:any=  useContext(DataContext)
+  
     const handleLogin = (id: number) => {
       setUserId(id);
    
