@@ -59,6 +59,7 @@ const Login = ({click,register,setId,userData}:any) => {
         }
        
       };
+      console.log("here")
     return ( 
         <div className="flex justify-center">
         <div className="bg-white p-8 shadow-md w-[371px]">
