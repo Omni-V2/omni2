@@ -16,13 +16,13 @@ interface User {
 }
 
 const UserListPage = () => {
-  const [users,setUsers]=useState<any[]>([])
+  const [users,setUsers]=useState<User[]>([])
 
   useEffect(()=>{
     const fetchUsers = async ()=>{
       try {
         const response = await axios.get<User[]>('http://localhost:3000/api/users/getall');
-        const filteredUsers = response.data.filter((user:any) => user.role === 'user');
+        const filteredUsers = response.data.filter((user:User) => user.role === 'user');
         setUsers(filteredUsers);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -50,16 +50,16 @@ const UserListPage = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user: User) => (
-            <tr key={user.id} className='hover:bg-rgba(0, 0, 0, 0.1)'>
-              <td className='text-base py-2 px-4'>{user.id}</td>
-              <td className='text-base py-2 px-4'>{user.username}</td>
-              <td className='text-base py-2 px-4'>{user.email}</td>
-              <td className='text-base py-2 px-4'>{user.password}</td>
-              <td className='text-base py-2 px-4'>{user.address}</td>
-              <td className='text-base py-2 px-4'>{user.firstName}</td>
-              <td className='text-base py-2 px-4'>{user.lastName}</td>
-              <td className='text-base py-2 px-4'>{user.role}</td>
+          {users.map((oneUser: User) => (
+            <tr key={oneUser.id} className='hover:bg-rgba(0, 0, 0, 0.1)'>
+              <td className='text-base py-2 px-4'>{oneUser.id}</td>
+              <td className='text-base py-2 px-4'>{oneUser.username}</td>
+              <td className='text-base py-2 px-4'>{oneUser.email}</td>
+              <td className='text-base py-2 px-4'>{oneUser.password}</td>
+              <td className='text-base py-2 px-4'>{oneUser.address}</td>
+              <td className='text-base py-2 px-4'>{oneUser.firstName}</td>
+              <td className='text-base py-2 px-4'>{oneUser.lastName}</td>
+              <td className='text-base py-2 px-4'>{oneUser.role}</td>
             </tr>
           ))}
         </tbody>
