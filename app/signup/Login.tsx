@@ -103,7 +103,7 @@ import Link from 'next/link';
 const Login = ({ click, register, setId, userData,router }: any) => {
   const auth = useAuth();
   const { setToken } = auth;
-   
+
   const navigateToMainPage = () => {
     router.push('/');
   };
