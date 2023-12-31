@@ -20,17 +20,17 @@ export default function Footer () {
                 alt="Logo"
                 className="mb-5 w-16 h-auto ml-2 md:w-30 lg:w-auto"
               />
-          <h2 text-lg font-semibold mb-2>Get 10% off your first order</h2>
+          <h2 text-lg ml-50 font-semibold mb-4>Get 10% off your first order</h2>
           </div>
           <div>
-          <h4 className='text-lg font-semibold mt-12 mb-10'>About Us</h4>
-          <h3 className=' mt-12 mb-10'>52, Ali Balhwene street,2080 - Ariana</h3>
+          <h4 className='text-lg font-semibold mt-12 mb-4'>About Us</h4>
+          <h3 className=' text-l mt-12 mb-10'>52, Ali Balhwene street,2080 - Ariana</h3>
           <h3>OmniMarket@gmail.com</h3>
           <h3>216.20.222.232</h3>
           </div>
           <div>
-              <h4 className='text-lg font-semibold mt-12 mb-10'>OUR PRODUCTS</h4>
-              <ul className="text-sm">
+              <h4 className='text-lg font-semibold mt-12 mb-4'>OUR PRODUCTS</h4>
+              <ul className="text-l">
                 <li><a href="#" className="text-white block">Baby toys</a></li>
                 <li><a href="#" className="text-white block">electronics</a></li>
                 <li><a href="#" className="text-white block">clothes</a></li>
@@ -39,16 +39,16 @@ export default function Footer () {
                 </ul>
           </div>
           <div>
-          <h4 className='text-lg font-semibold mt-12 mb-10'>QR Code</h4>
+          <h4 className='text-lg ml-10 font-semibold mt-12 mb-4'>QR Code</h4>
           <img
-                src="https://i.ibb.co/KshTGmV/QR-code.pngf"
+                src="https://i.ibb.co/zfYSs2D/QR.png"
                 alt="QR Code"
-                className="w-30 h-20 ml-25 lg:ml-0"
+                className="w-40 h-30 mr-40 "
               />
           </div>
           <div className='mr-10'>
               <h4 className='text-lg font-semibold mt-12 mb-4'>SOCIAL MEDIA</h4>
-              <div className="flex space-x-2">
+              <div className="flex ml-5 space-x-2">
                 <a href="" aria-label="Find us on Twitter" target="_blank" rel="noopener">
                 <svg className="h-6 w-6 text-white" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.1 39.5c18.1 0 28.02-15 28.02-28.02 0-.42-.01-.85-.03-1.27A20 20 0 0 0 48 5.1c-1.8.8-3.7 1.32-5.65 1.55a9.9 9.9 0 0 0 4.33-5.45 19.8 19.8 0 0 1-6.25 2.4 9.86 9.86 0 0 0-16.8 8.97A27.97 27.97 0 0 1 3.36 2.3a9.86 9.86 0 0 0 3.04 13.14 9.86 9.86 0 0 1-4.46-1.23v.12A9.84 9.84 0 0 0 9.83 24c-1.45.4-2.97.45-4.44.17a9.87 9.87 0 0 0 9.2 6.84A19.75 19.75 0 0 1 0 35.08c4.5 2.89 9.75 4.42 15.1 4.42Z" fill="currentColor">
