@@ -5,6 +5,7 @@ import Navbar from './comps/Navbar'
 import Footer from './comps/Footer'
 
 import { DataProvider } from "./context"
+import { AuthProvider } from './AuthContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -20,8 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <DataProvider>
+        <AuthProvider>
       <body className={inter.className}><Navbar/>{children}</body>
       <Footer/>
+      </AuthProvider>
       </DataProvider>
     </html>
   )

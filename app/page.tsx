@@ -3,6 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { useState,useEffect } from 'react';
 import AllSales from './comps/Allsales'
+import BestSelling from './comps/BestSelling';
+import AllBestSales from './comps/AllBestSales';
+import AllHomeComponent from './comps/AllHomeComponent';
+import AllExplore from './comps/Allexplore';
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -25,39 +29,37 @@ export default function Home() {
     <>
     <div >
       <hr className='text-gray-300'/>
-      <div className='-mt-[50px]'>
+      <div className=''>
       
            <div className=' flex justify-start m-11 gap-32 mt-[100px]'>
-           <div id="unique" >
-          <h1>women's fashion </h1>
-          <h1>men's fashion</h1>
-          <h1>Electronics</h1>
-          <h1>Home & LifeStyle</h1>
-          <h1>Medecine</h1>
-          <h1>Sports & Outdoor</h1>
-          <h1>Baby's & Toys</h1>
-          <h1>Groceries & Pets</h1>
-          <h1>Health & Beauty</h1>
+           <div id="unique" className='text-lg '>
+          <h1 className='mb-2 cursor-pointer'>women's fashion </h1>
+          <h1 className='mb-2 cursor-pointer'>men's fashion</h1>
+          <h1 className='mb-2 cursor-pointer'>Electronics</h1>
+          <h1 className='mb-2 cursor-pointer'>Home & LifeStyle</h1>
+          <h1 className='mb-2 cursor-pointer'>Medecine</h1>
+          <h1 className='mb-2 cursor-pointer'>Sports & Outdoor</h1>
+          <h1 className='mb-2 cursor-pointer'>Baby's & Toys</h1>
+          <h1 className='mb-2 cursor-pointer'>Groceries & Pets</h1>
+          <h1 className='mb-2 cursor-pointer'>Health & Beauty</h1>
            </div>
            <img
-          className='w-[1000px] ml-[40px] mt-[30px]'
+          className='w-[1000px] ml-[40px] -mt-[10px]'
           src={images[currentImageIndex]}
           alt=''
           onClick={changeImage} 
         />  
            </div>
       </div>
-           <hr id="hr-unique" className=' rotate-90 w-96 -mt-[300px] text-gray-300'/>
-          
-            
-      
-      
+           <hr id="hr-unique" className=' rotate-90 w-96 -mt-[300px] text-gray-300 m-[25px]'/>
+    </div>
 
+    <div className='mt-[350px] '>
+      <AllHomeComponent/>
     </div>
-    <div className='mt-[350px]'>
-    <AllSales/>
-    
-    </div>
+ 
+
     </>
+
   )
 }
