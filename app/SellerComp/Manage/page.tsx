@@ -144,9 +144,9 @@
 // export default Manage;
 // ... (existing imports)
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import axios from 'axios';
-
+import { DataContext } from '../../context';
 // ... (existing interfaces)
 
 const DeleteConfirmationPopup: React.FC<{
@@ -186,6 +186,9 @@ interface Product {
         updatedAt:any;
       }
 const Manage: React.FC = () => {
+    const {user, setUserId }:any=  useContext(DataContext)
+    console.log('myidd',user);
+    
   const [products, setProducts] = useState<Product[]>([]);
   const [editingProductId, setEditingProductId] = useState<number | null>(null);
   const [updatedPrice, setUpdatedPrice] = useState<string | null>(null);
@@ -199,7 +202,7 @@ const Manage: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/producs/user/4`)
+      .get(`http://localhost:3000/api/producs/user/${user.id}`)
       .then((response) => setProducts(response.data))
       .catch((error) => console.error("Error fetching products:", error));
   }, [refresh]);
