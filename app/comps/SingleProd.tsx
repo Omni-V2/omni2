@@ -15,7 +15,7 @@ export default function Single({data}) {
 
      
           <ProdImage img={data.imageUrl} sales={data.sales} prod={data}/>
-          <Addtochart />
+          <Addtochart prod={data}/>
          
       </div>
       <div className="flex flex-col gap-2">
