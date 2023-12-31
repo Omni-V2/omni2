@@ -13,7 +13,7 @@ interface User {
   role: string;
 }
 const UserList = () => {
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -50,23 +50,19 @@ const UserList = () => {
             <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>UserName</th>
             <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Email</th>
             <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Password</th>
-            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Address</th>
-            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>First Name</th>
-            <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Last Name</th>
+            
             <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Role</th>
             <th className='text-left font-semibold text-xs uppercase border-b border-gray-300 py-2 px-4'>Action</th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user: any) => (
+          {users.map((user: User) => (
             <tr className='hover:bg-gray-100' key={user.id}>
               <td className='py-2 px-4'>{user.id}</td>
               <td className='py-2 px-4'>{user.username}</td>
               <td className='py-2 px-4'>{user.email}</td>
               <td className='py-2 px-4'>{user.password}</td>
-              <td className='py-2 px-4'>{user.address}</td>
-              <td className='py-2 px-4'>{user.firstName}</td>
-              <td className='py-2 px-4'>{user.lastName}</td>
+            
               <td className='py-2 px-4'>{user.role}</td>
               <td>
                 <button 

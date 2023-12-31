@@ -5,9 +5,8 @@ import Cloudinary from "@/app/adminComponents/cloudinary/page";
 import { DataContext } from "@/app/context";
 
 
-
-
 interface Product {
+   id:number,
     productName: string;
     rating: string;
     price: string;
@@ -21,11 +20,12 @@ interface Product {
     UserId: number;
   }
   
-const test = ({id}) => {
+const test = () => {
 
-    const { userId, setUserId } = useContext(DataContext);
+  const {userId, setUserId }:any=  useContext(DataContext)
     const [products, setProducts] = useState<Product[]>([]);
     const [newProduct, setNewProduct] = useState<Product>({
+      id:userId,
       productName: "",
       rating: "",
       price: "",
@@ -39,15 +39,18 @@ const test = ({id}) => {
       UserId: userId,
     });
     console.log("idd",userId)
-   
+ 
     const handleSubmit = async (event: FormEvent) => {
+      
         event.preventDefault();
         console.log("hello",newProduct)
         try {
           await axios.post("http://localhost:3000/api/products", newProduct);
           const response = await axios.get("http://localhost:3000/api/products");
+          
           setProducts(response.data);
           setNewProduct({
+            id:userId,
             productName: "",
             rating: "",
             price: "",
