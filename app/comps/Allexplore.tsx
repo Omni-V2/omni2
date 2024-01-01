@@ -7,6 +7,7 @@ const AllExplore = () => {
         <Exploredesc/>
         <ExploreProds/>
         <ViewAll/>
+        <img src="https://i.ibb.co/yd4cNfv/Frame-740.png" alt="" />
     </div> );
 }
  
