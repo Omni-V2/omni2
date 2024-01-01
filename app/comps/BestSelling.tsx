@@ -23,7 +23,7 @@ const BestSelling = () => {
       };
       console.log("best",products);
     return ( 
-        <div className='flex flex-row gap-10'>
+        <div className='flex flex-row justify-center gap-10'>
         {products.filter((e:ProductType,i:number)=>e.sales!==0).map((el:ProductType,i:number)=><Single key={i} data={el}/>)}
     </div> 
      );
