@@ -34,16 +34,15 @@ const Cart = () => {
     const subtotal = calculateSubtotal();
     const shipping = 7;
     const totalBeforeDiscount = subtotal + shipping;
-
     const discountedTotal = totalBeforeDiscount - totalBeforeDiscount * discount;
 
     return discountedTotal;
   };
 
   const calculateSubtotal = () => {
-    return cartList.reduce((acc, cartItem) => {
-       return acc + cartItem.product.price * cartItem.quantity;
-    }, 0);
+    return cartList.reduce(( acc,cartItem) => {
+       return acc+ parseInt(cartItem.product.price) * cartItem.quantity;
+    },0);
    };
 
   const checkout = () => {
@@ -79,7 +78,7 @@ const Cart = () => {
     const updatedCart = cartList.filter((item) => item.product?.id !== productId);
     setCartList(updatedCart);
   };
-  
+  console.log('cartlist' ,cartList)
 
   return (
     <div>
@@ -101,21 +100,19 @@ const Cart = () => {
             className='grid grid-cols-4 mt-10 shadow items-center h-14 w-5/6'
             style={{ display: 'flex', justifyContent: 'space-around' }}
           >
-            <img className='w-10 ml-10' src={cartItem.product?.imageUrl[0]} alt='' />
-            <h1 className='ml-10'>{cartItem.product?.price}Dt</h1>
+            <img className='w-10 ml-10' src={cartItem.product.imageUrl[0]} alt='' />
+            <h1 className='ml-10'>{cartItem.product.price}Dt</h1>
             <input
               className='w-10 ml-10 border-gray-300 border rounded'
               type='number'
               value={cartItem.quantity}
               onChange={(e) =>
-                handleQuantityChange(cartItem.product?.id, parseInt(e.target.value))
+                handleQuantityChange(cartItem.product.id, parseInt(e.target.value))
               }
             />
-            <h1 className='ml-20'>{cartItem.product?.price * cartItem.quantity}Dt</h1>
-            <MdDelete
-            className='ml-10 cursor-pointer'
-            onClick={() =>  handleDelete(cartItem.product.id)}
-          />
+            <h1 className='ml-20'>{cartItem.product.price * cartItem.quantity}Dt</h1>
+            <MdDelete  className='cursor-pointer'
+             onClick={() =>  handleDelete(cartItem.product.id)}/>
           </div>
         ))}
 
@@ -149,7 +146,7 @@ const Cart = () => {
           <hr className='text-gray-300 w-5/6' />
           <h3 className='ml-5 mt-6'>Total:{calculateSubtotal()} $</h3>
           <Link href={'/Cartchekout/chekout'}>
-            <button
+            <button 
               className='shadow border-gray-300 border rounded ml-20 bg-red text-white w-48 h-12 mt-4'
               onClick={handleBothCheckouts}
             >
