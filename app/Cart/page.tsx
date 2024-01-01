@@ -40,6 +40,7 @@ const Cart = () => {
   };
 
   const calculateSubtotal = () => {
+
     return cartList.reduce(( acc,cartItem) => {
        return acc+ parseInt(cartItem.product.price) * cartItem.quantity;
     },0);

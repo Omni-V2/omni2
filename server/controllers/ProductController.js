@@ -25,7 +25,14 @@ async function getAllProducts(req, res) {
     res.status(500).json({ error: error.message });
   }
 }
-
+async function getAllProductss(req, res) {
+  try {
+    const products = await Product.findAll();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 // Get a single product by ID
 async function getProductById(req, res) {
   try {
@@ -92,5 +99,6 @@ module.exports = {
   getProductById,
   updateProductById,
   deleteProductById,
-  getProductWithUserId
+  getProductWithUserId,
+  getAllProductss
 };

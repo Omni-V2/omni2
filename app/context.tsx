@@ -55,34 +55,37 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [quantity, setQuantity] = useState(1);
   const [userId, setUserId] = useState<number | null>(null)
   const [user,setUser]=useState<User>({})
+  const [getAllData, setGetAllData] = useState<Boolean>(false);
   useEffect(() => {
-    axios.get('http://localhost:3000/api/products', {
-      params: {
-        limit: 4,
-      },
-    })
-    .then((response) => {
-      setProducts(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/users/${userId}`, {
+        if (getAllData) {
+         
+          const allProductsResponse = await axios.get('http://localhost:3000/api/productss');
+          setProducts(allProductsResponse.data);
+        } else {
+        
+          const limitedProductsResponse = await axios.get('http://localhost:3000/api/products', {
+            params: {
+              limit: 4,
+            },
+          });
+          setProducts(limitedProductsResponse.data);
+        }
+
+        
+        const userResponse = await axios.get(`http://localhost:3000/api/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-       
-        setUser(response.data);
-        
+        setUser(userResponse.data);
       } catch (error) {
-        console.error('Error fetching user data', error);
+        console.error('Error fetching data', error);
       }
     };
-    fetchUserData();
-  }, [userId]);
+    fetchData();
+  }, [userId, getAllData]);
 
   const handleAddToChartBtn = (id: string, prod: Product) => {
     setCartList([...cartList, {
@@ -104,7 +107,9 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     handleAddToChartBtn,
     userId,
     setUserId,
-    user
+    user,
+    setGetAllData,
+    getAllData
   };
 
   return (
