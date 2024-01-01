@@ -3,6 +3,7 @@ import React, { useState, useEffect, ChangeEvent, FormEvent,useContext } from "r
 import axios from "axios";
 import Cloudinary from "@/app/adminComponents/cloudinary/page";
 import { DataContext } from '../../context';
+import Link from "next/link";
 
 
 
@@ -36,13 +37,16 @@ const test = () => {
       available: "",
       UserId: user.id,
     });
-    
-
+   
+ 
     const handleSubmit = async (event: FormEvent) => {
+      
         event.preventDefault();
+        console.log("hello",newProduct)
         try {
           await axios.post("http://localhost:3000/api/products", newProduct);
           const response = await axios.get("http://localhost:3000/api/products");
+          
           setProducts(response.data);
           setNewProduct({
             productName: "",
@@ -92,7 +96,9 @@ const test = () => {
           <Cloudinary setImg={setImg} />
           </div>
           <div>
+          <Link href={'/SellerComp/Manage'}>
           <button className="bg-red text-white font-bold py-2 px-4 rounded mt-4 ml-[450px]" type="submit" onClick={handleSubmit}>Add</button>
+          </Link>
 
           </div>
         </div>

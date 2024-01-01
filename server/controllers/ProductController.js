@@ -16,13 +16,23 @@ async function createProduct(req, res) {
 // Get all products
 async function getAllProducts(req, res) {
   try {
+    const limit = req.query.limit || 0
+    const products = await Product.findAll({
+    limit: parseInt(limit, 10), 
+    });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+async function getAllProductss(req, res) {
+  try {
     const products = await Product.findAll();
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
-
 // Get a single product by ID
 async function getProductById(req, res) {
   try {
@@ -89,5 +99,6 @@ module.exports = {
   getProductById,
   updateProductById,
   deleteProductById,
-  getProductWithUserId
+  getProductWithUserId,
+  getAllProductss
 };
