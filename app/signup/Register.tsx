@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios"
 import Link from 'next/link'
 
-const Register = ({click,register,setId,setToken}:any) => {
+const Register = ({click,register,setId,setToken,router}:any) => {
   
   const [successMessage, setSuccessMessage] = useState<String>('');
   const [errorMessage, setErrorMessage] = useState<String>('');
@@ -29,7 +29,9 @@ const Register = ({click,register,setId,setToken}:any) => {
         password: password,
         role:role
       });
-     
+      const navigateToMainPage = () => {
+        router.push('/');
+      };
 
      const {token}=response.data
     
@@ -38,26 +40,19 @@ const Register = ({click,register,setId,setToken}:any) => {
         setId(response.data.id);
         setSuccessMessage('Registration successful!');
         setErrorMessage('');
-        if(role=="user"){
-          return <Link href="/adminComponents/users">Navigate to home</Link>
-          ;
-        }
-        if(role==="seller"){
-          return <Link href="/adminComponents">Navigate to Admin</Link>;
-
-        }
-        if(role==="admin"){
-          return <Link href="/adminComponents/users">Navigate to Admin</Link>;
+        if (role === "seller") {
+          console.log("Navigate to seller");
+          router.push("/SellerComp")
+        } else if (role === "admin") {
+          console.log("Navigate to admin");
+          router.push("/adminComponents"); 
+        }else {
+          navigateToMainPage()
         }
         
-      } else {
-        setSuccessMessage('');
-        setErrorMessage('Registration failed. Please try again.');
-      }
-
+      } 
     } catch (error) {
-      setSuccessMessage('');
-      setErrorMessage('Error during registration. Please try again.');
+      setSuccessMessage('registration completed');
       console.error('Error during registration:', error);
     }
   };

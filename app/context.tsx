@@ -93,6 +93,7 @@ const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       product: prod,
       quantity: 1,
     }]);
+    console.log(prod,"cartlisttt")
   };
 
   const value: DataContextValue = {
