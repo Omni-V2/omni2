@@ -1,7 +1,7 @@
 "use client"
-import React , {useState,useEffect} from "react"
+import React , {useState,useEffect,useContext} from "react"
 import axios from 'axios'
-// import Cookies from 'js-cookie';
+import { DataContext } from '../context';
 
 const Profile = () => {//we need to pass users as props in main directory (import {useIdentity} from '')
 const [photo,setPhoto]=useState<string | null>(null)
@@ -9,45 +9,32 @@ const[userName,setUserName]=useState<string>("");
 const [email, setEmail] = useState<string>("");
 const [password, setPassword] = useState<string>("")
 const [newPassword, setNewPassword] = useState<string | null>("")
-const [userid,setUserId]= useState('')
+const {user, setUserId }:any=  useContext(DataContext)
 
-// useEffect(()=>{
-//   const token = Cookies.get('token');
-//   const userId = Cookies.get('userId');
-//   const email = Cookies.get('email');
-//   const password = Cookies.get('password')
 
-// if (token && userId) {
-//   setUserId(userId)
-//   setPassword(password || '')
-// }else{
-//   console.log("not allowed")
-// }
-// },[])
+const handleUpdateProfile = async () =>{
+  const profileToUpdate:any ={
+    username:userName,
+    email:email,
+    password:password,
+  }
 
-// const handleUpdateProfile = async () =>{
-//   const profileToUpdate:any ={
-//     username:userName,
-//     email:email,
-//     password:password,
-//   }
-// }
-// try{
-//   const update = await axios.put(`http://localhost:3000/api/users/${user?.id}`, profileToUpdate);
-//   console.log("Profile updated successfully", update.data)
-//   alert("Profile updated successfully");
-// }catch (error){
-//   console.log("Error updating profile",error)
-//   alert("Please try again.")
-// };
-// };
+try{
+  const update = await axios.put(`http://localhost:3000/api/users/${user.id}`,profileToUpdate);
+  console.log("Profile updated successfully", update.data)
+  alert("Profile updated successfully");
+}catch (error){
+  console.log("Error updating profile",error)
+  alert("Please try again.")
+};
+};
 
-// const handleClickCancel = () => {
-//   setUserName('');
-//   setEmail('');
-//   setPassword('');
-//   setNewPassword('');
-// };
+const handleClickCancel = () => {
+  setUserName('');
+  setEmail('');
+  setPassword('');
+  setNewPassword('');
+};
 
 // const Cloudinary = () => {
 //   const cloudName: string = 'dcq9dwrsb';
@@ -81,7 +68,7 @@ const [userid,setUserId]= useState('')
 //   await handleUpload(files[0]);
 //   }
 //   };
-
+// }
     return (
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
@@ -99,7 +86,7 @@ const [userid,setUserId]= useState('')
                 <label className="block justfy-center space-x-6">
                   <span className="sr-only">Choose profile photo</span>
                   <input type="file" 
-                  // onChange={onChange}
+                  //onChange={onChange}
                   className="block w-full justfy-center text-sm text-slate-500
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-full file:border-0
@@ -115,7 +102,7 @@ const [userid,setUserId]= useState('')
               id="password"
               className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
               placeholder="Full Name"
-              // onChange={(e)=> setUserName(e.target.value)}
+              onChange={(e)=> setUserName(e.target.value)}
               ></input>
             </div>
             <div className="sm:col-span-2">
@@ -127,7 +114,7 @@ const [userid,setUserId]= useState('')
                 className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
                 placeholder="password"
                 required
-              // onChange={(e)=> setPasssword(e.target.value)}
+              onChange={(e)=> setPassword(e.target.value)}
               ></input>
             </div>
             <div className="sm:col-span-2">
@@ -138,7 +125,7 @@ const [userid,setUserId]= useState('')
               id="newPassword"
               className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
               placeholder="Full Name"
-              // onChange={(e)=>{setNewPassword(e.target.value)}}
+              onChange={(e)=>{setNewPassword(e.target.value)}}
               ></input>
             </div>
             <div>
@@ -150,14 +137,14 @@ const [userid,setUserId]= useState('')
                 id="email"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
                 placeholder="name@flowbite.com"
-              // onChange={(e)=> setEmail(e.target.value)}
+              onChange={(e)=> setEmail(e.target.value)}
               />
             </div>
             <div className="flex gap-10 ml-[190px]">
             <button
               type="submit"
               className="py-2 px-4 font-semibold text-center text-white rounded bg-red w-[20px] h-[40px] sm:w-fit hover:bg-white  hover:text-red hover:focus:ring-4 focus:outline dark:focus:ring-primary-300 dark:bg-primary-600"
-              // onClick={()=>{handleUpdateProfile(profileToUpdate)}}
+              onClick={()=>{handleUpdateProfile}}
               >
               Save changes
             </button>
@@ -165,7 +152,7 @@ const [userid,setUserId]= useState('')
             <button
               type="submit"
               className=" ml-[10px]bg-transparent hover:bg-red text-red font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-red-800 rounded"
-              // onClick={()=>{handleClickCancel()}}
+              onClick={()=>{handleClickCancel()}}
               >
               Cancel
             </button>
