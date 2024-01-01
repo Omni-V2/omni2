@@ -1,8 +1,8 @@
 "use client"
-import React, { useState,useContext } from 'react';
-import { MdDelete } from "react-icons/md";
+import React, { useState, useContext } from 'react';
+import { MdDelete } from 'react-icons/md';
 import { DataContext } from '../context';
-import axios from "axios";
+import axios from 'axios';
 import Link from 'next/link';
 
 interface CartItem {
@@ -15,16 +15,10 @@ interface CartItem {
     imageUrl: string[];
   };
 }
-interface CartPageProps {
-  user: {
-    id: number;
-  };
-}
 
 const Cart = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [showOrder, setShowOrder] = useState(false);
-  const { cartList, setCartList,user } = useContext(DataContext);
+  const { cartList, setCartList, user } = useContext(DataContext);
   const [notification, setNotification] = useState<string>('');
   const [couponCode, setCouponCode] = useState<string>('');
   const [discount, setDiscount] = useState<number>(0);
@@ -48,16 +42,12 @@ const Cart = () => {
 
   const calculateSubtotal = () => {
     return cartList.reduce((acc, cartItem) => {
-      if (cartItem.product && cartItem.product.price) {
-        return acc + cartItem.product.price * cartItem.quantity;
-      } else {
-        console.error("Invalid product data:", cartItem);
-        return acc;
-      }
+       return acc + cartItem.product.price * cartItem.quantity;
     }, 0);
-  };
+   };
+
   const checkout = () => {
-    const axiosRequests = cartList.map((e, i) =>
+    const axiosRequests = cartList.map((e) =>
       axios.post('http://localhost:3000/api/cart', {
         UserId: user.id,
         ProductId: e.product.id,
@@ -85,85 +75,91 @@ const Cart = () => {
     }
   };
 
-    return (  
+  const handleDelete = (productId: number) => {
+    const updatedCart = cartList.filter((item) => item.product?.id !== productId);
+    setCartList(updatedCart);
+  };
+  
+
+  return (
+    <div>
+      <div className='ml-40 mt-20'>
+        <h1 className='text-gray-300'>
+          Home / <span className='text-black'> Cart</span>
+        </h1>
+
+        <div className='grid grid-cols-4 mt-10 shadow items-center h-14 w-5/6 '>
+          <h1 className='ml-20'>Product</h1>
+          <h1 className='ml-20'>Price</h1>
+          <h1 className='ml-20'>Quantity</h1>
+          <h1 className='ml-10'>Subtotal</h1>
+        </div>
+
+        {cartList.map((cartItem, i) => (
+          <div
+            key={i}
+            className='grid grid-cols-4 mt-10 shadow items-center h-14 w-5/6'
+            style={{ display: 'flex', justifyContent: 'space-around' }}
+          >
+            <img className='w-10 ml-10' src={cartItem.product?.imageUrl[0]} alt='' />
+            <h1 className='ml-10'>{cartItem.product?.price}Dt</h1>
+            <input
+              className='w-10 ml-10 border-gray-300 border rounded'
+              type='number'
+              value={cartItem.quantity}
+              onChange={(e) =>
+                handleQuantityChange(cartItem.product?.id, parseInt(e.target.value))
+              }
+            />
+            <h1 className='ml-20'>{cartItem.product?.price * cartItem.quantity}Dt</h1>
+            <MdDelete
+            className='ml-10 cursor-pointer'
+            onClick={() =>  handleDelete(cartItem.product.id)}
+          />
+          </div>
+        ))}
+
         <div>
- 
-        <div className='ml-40 mt-20'>
-              <h1 className='text-gray-300'>
-                Home / <span className='text-black'> Cart</span>
-              </h1>
-      
-              <div className='grid grid-cols-4 mt-10 shadow items-center h-14 w-5/6 '>
-                <h1 className='ml-20'>Product</h1>
-                <h1 className='ml-20'>Price</h1>
-                <h1 className='ml-20'>Quantity</h1>
-                <h1 className='ml-10'>Subtotal</h1>
-              </div>
-      
-                {cartList.map((cartItem,i)=>(
-                   <div key={i} 
-                   className='grid grid-cols-4 mt-10 shadow items-center h-14 w-5/6 '
-                   style={{ display: 'flex', justifyContent: 'space-around' }}
-                 >
-                   <img className='w-10 ml-10' src={cartItem.product.productName} alt='' />
-                   <h1 className='ml-10'>{cartItem.product.price}Dt</h1>
-                   <input
-                     className='w-10 ml-10 border-gray-300 border rounded'
-                     type='number'
-                     value={cartItem.quantity}
-                     onChange={(e) =>
-                       handleQuantityChange(cartItem.product.id, parseInt(e.target.value))
-                     }
-                   />
-                   <h1 className='ml-20'>{cartItem.product.price * cartItem.quantity}Dt</h1>
-                   <MdDelete className='ml-10 cursor-pointer' />
-                 </div>
-                ))}
-               
-             
-      
-              <div>
-                <button className='shadow border-gray-300 border mt-10 w-40 h-14 border rounded text-sm'></button>
-                <button className='shadow border-gray-300 border mt-10 w-40 h-14 border rounded text-sm float-right mr-56'></button>
-              </div>
-      
-              <div className='mt-20 '>
-                <input
-                  className='border-gray-300 border rounded w-48 h-12 text-center text-sm'
-                  type='text'
-                  placeholder='Coupon Code'
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value)}
-                />
-                <button className='ml-3 bg-red w-40 h-12 border rounded text-white text-sm' onClick={()=>{handleCouponApply}}>Apply Coupon</button>
-                {notification && <p>{notification}</p>}
-               
-              </div>
-             
-      
-              <div className='float-right -mt-28 mr-56  shadow border-black border rounded w-80 h-64  text-start  '>
-                <h1 className='ml-5 mt-2'>Cart Total</h1>
-                <h3 className='ml-5 mt-6'>Subtotal:{calculateSubtotal()}$</h3>
-                <hr className='text-gray-300 w-5/6 text-center' />
-                <h3 className='ml-5 mt-6'>Shipping: 7 Dt</h3>
-                <hr className='text-gray-300 w-5/6' />
-                <h3 className='ml-5 mt-6'>Total:{calculateSubtotal()} $</h3>
-                <Link href={'/Cartchekout/chekout'}>
-                <button
-                  className='shadow border-gray-300 border rounded ml-20 bg-red text-white w-48 h-12 mt-4'
-                 onClick={()=>{handleBothCheckouts;}}
-                >
-                  Proceed to checkout
-                </button>
-                </Link>
-               
-              </div>
-            </div>
-           
-      
-      
+          <button className='shadow border-gray-300 border mt-10 w-40 h-14 border rounded text-sm'></button>
+          <button className='shadow border-gray-300 border mt-10 w-40 h-14 border rounded text-sm float-right mr-56'></button>
+        </div>
+
+        <div className='mt-20 '>
+          <input
+            className='border-gray-300 border rounded w-48 h-12 text-center text-sm'
+            type='text'
+            placeholder='Coupon Code'
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+          />
+          <button
+            className='ml-3 bg-red w-40 h-12 border rounded text-white text-sm'
+            onClick={handleCouponApply}
+          >
+            Apply Coupon
+          </button>
+          {notification && <p>{notification}</p>}
+        </div>
+
+        <div className='float-right -mt-28 mr-56  shadow border-black border rounded w-80 h-64  text-start  '>
+          <h1 className='ml-5 mt-2'>Cart Total</h1>
+          <h3 className='ml-5 mt-6'>Subtotal:{calculateSubtotal()}$</h3>
+          <hr className='text-gray-300 w-5/6 text-center' />
+          <h3 className='ml-5 mt-6'>Shipping: 7 Dt</h3>
+          <hr className='text-gray-300 w-5/6' />
+          <h3 className='ml-5 mt-6'>Total:{calculateSubtotal()} $</h3>
+          <Link href={'/Cartchekout/chekout'}>
+            <button
+              className='shadow border-gray-300 border rounded ml-20 bg-red text-white w-48 h-12 mt-4'
+              onClick={handleBothCheckouts}
+            >
+              Proceed to checkout
+            </button>
+          </Link>
+        </div>
       </div>
-    );
-}
- 
+    </div>
+  );
+};
+
 export default Cart;
