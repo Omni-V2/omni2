@@ -41,7 +41,7 @@ const Cart = () => {
   };
 
   const calculateSubtotal = () => {
-    return cartList.reduce((acc, cartItem) => {
+    return cartList.reduce((acc, cartItem:CartItem) => {
        return acc + cartItem.product.price * cartItem.quantity;
     }, 0);
    };

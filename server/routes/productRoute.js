@@ -5,9 +5,10 @@ const authenticateToken = require('../middleware/jwtAuthMiddleware');
 // POST create a new product
 router.post('/products', ProductController.createProduct);
 
+
 // GET all products
 router.get('/products', ProductController.getAllProducts);
-
+router.get('/productss', ProductController.getAllProductss);
 // GET a single product by ID
 router.get('/products/:id', ProductController.getProductById);
 
