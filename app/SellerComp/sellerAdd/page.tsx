@@ -4,7 +4,7 @@ import axios from "axios";
 import Cloudinary from "@/app/adminComponents/cloudinary/page";
 import { DataContext } from '../../context';
 import Link from "next/link";
-
+import { useRouter } from 'next/navigation';
 
 
 interface Product {
@@ -37,7 +37,7 @@ const test = () => {
       available: "",
       UserId: user.id,
     });
-   
+    const router = useRouter();
  
     const handleSubmit = async (event: FormEvent) => {
       
@@ -61,7 +61,7 @@ const test = () => {
             available: "",
             UserId:0,
           });
-          
+          router.push('/SellerComp/Manage')
         } catch (error) {
           console.error("Error adding product:", error);
         }
@@ -96,9 +96,9 @@ const test = () => {
           <Cloudinary setImg={setImg} />
           </div>
           <div>
-          <Link href={'/SellerComp/Manage'}>
+      
           <button className="bg-red text-white font-bold py-2 px-4 rounded mt-4 ml-[450px]" type="submit" onClick={handleSubmit}>Add</button>
-          </Link>
+        
 
           </div>
         </div>

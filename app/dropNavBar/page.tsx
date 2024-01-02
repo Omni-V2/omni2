@@ -1,7 +1,7 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import Link from 'next/link';
-
+import { DataContext } from '../context';
 interface Setting {
   name: string;
   href: string;
@@ -10,12 +10,12 @@ interface Setting {
 const settings: Setting[] = [
   { name: 'Manage My Account', href: '/profile' },
   { name: 'My Order', href: '/orders' },
-  { name: 'Logout', href: '/signIn' }
+  { name: 'Logout', href: '/signup/' }
 ];
 
 const DropNavbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const {user }:any=  useContext(DataContext)
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -43,8 +43,8 @@ const DropNavbar = () => {
       >
         <div className='mr-[40px]'>
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white dark:hover:text-gray-700">
-            <div>Bonnie Green</div>
-            <div className="font-medium truncate">name@user.com</div>
+            <div>{user.username}</div>
+            <div className="font-medium truncate">{user.email}</div>
           </div>
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
             {settings.map((setting) => (
