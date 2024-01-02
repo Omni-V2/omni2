@@ -59,7 +59,6 @@ const Search = () => {
           value={search}
           onChange={handleChange}
         />
-        {/* Search Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="ml-3 mr-1 h-4 w-4 text-gray-400 hover:text-gray-500 hover:semibold cursor-pointer absolute top-1/2 transform -translate-y-1/2 right-1"
@@ -79,9 +78,9 @@ const Search = () => {
         </svg>
       </div>
 
-      {/* Placeholder for other icons */}
+
       <div className="absolute left-0 inset-y-0 flex items-center ">
-        {/* Replace this with your desired icon */}
+
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 ml-1 text-gray-400 hover:text-gray-500 hover:semibold hover:drop-shadow-xl"

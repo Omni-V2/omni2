@@ -1,4 +1,3 @@
-// ProductList.tsx
 "use client"
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
@@ -45,7 +44,7 @@ const ProductList: React.FC<{ id: number }> = ({ id }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/products");
+        const response = await axios.get("http://localhost:3000/api/productss");
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -53,7 +52,7 @@ const ProductList: React.FC<{ id: number }> = ({ id }) => {
     };
 
     fetchProducts();
-  }, []);
+  }, [products]);
 console.log(products,"array")
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

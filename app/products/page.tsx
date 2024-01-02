@@ -3,7 +3,6 @@ import React, { useState,useContext } from "react";
 import Star from "../../public/star.svg";
 import { DataContext } from '../context'
 import axios from "axios";
-// import { useRouter } from 'next/router';
 
 interface ProductAttributes {
   id: number;
@@ -20,25 +19,20 @@ interface ProductAttributes {
   UserId: number;
 }
 function ProductsDetails({data}:any) {
-  const { oneProduct } = useContext(DataContext);
+  const { oneProduct,user } = useContext(DataContext);
   console.log("prod",oneProduct);
   
   const number = [1,2,3,4,5]
-  // const router = useRouter();
-  // const { data } = router.query;
-  // const productData:ProductAttributes = data ? JSON.parse(data as string) : null;
-  // console.log(productData,"data")
-  // const handleWishlistClick = () => {
-  //   console.log("datauss",dataUser);
-  //  axios.post("http://localhost:3000/api/addwish",{UserId:dataUser.id,ProductId:oneProduct.id})
-  //  .then((res)=>setShowAlert(true))
-  //  .catch((err)=>console.log(err))
-  // };
+  const handleWishlistClick = () => {
+   axios.post("http://localhost:3000/api/addwish",{UserId:user.id,ProductId:oneProduct.id})
+   .then((res)=>{})
+   .catch((err)=>console.log(err))
+  };
   return (
     <div>
       <div className="ProductDetails flex flex-col items-center gap-6 pb-6">
-        <div className="ProductDetails_header flex justify-center gap-80   min-h-full  ">
-          <div className="ProductDetails_gallery      h-[550px] w-[700px]  flex justify-start gap-[20px]">
+        <div className="ProductDetails_header flex justify-center gap-40   min-h-full  ">
+          <div className="ProductDetails_gallery h-[550px] w-[700px]  flex justify-start gap-[20px]">
             <div className="vertical_gallery flex flex-col gap-[10px]">
              
                 <img
@@ -56,12 +50,6 @@ function ProductsDetails({data}:any) {
                                     src={oneProduct.imageUrl&&oneProduct.imageUrl[0]}
 
                
-               alt=""
-               className="w-60 h-60 justify-center items-center rounded-md object-contain "
-             />
-                   <img
-                                src={oneProduct.imageUrl&&oneProduct.imageUrl[0]}
-
                alt=""
                className="w-60 h-60 justify-center items-center rounded-md object-contain "
              />
@@ -111,7 +99,7 @@ function ProductsDetails({data}:any) {
                 </div>
                 <div id="red" className="h-6 w-6 bg-red-500   border-2 border-black rounded-full   bg-[#be123c]"   ></div>
               </div>
-              <div id="cuantity" className="flex justify-start items-center gap-16">
+              <div id="cuantity" className="flex justify-start items-center gap-4">
                 <div className="cuantity_counter flex items-center">
                   <button id="minest" className="flex w-10 h-9 font-poppins text-2xl font-light  bg-red  justify-center items-center flex-shrink-0 border-r text-white border-red border-opacity-50">-</button>
                   <input
@@ -129,13 +117,11 @@ function ProductsDetails({data}:any) {
                 >
                   Add To Cart
                 </button>
-                <div className="wishList flex w-10 h-10 p-1 border border-black border-opacity-50 rounded-md">
-                <svg  width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg  width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={handleWishlistClick}>
                   <g id="Wishlist">
                     <path id="Vector"  fill="red" d="M11 7C8.239 7 6 9.216 6 11.95C6 14.157 6.875 19.395 15.488 24.69C15.6423 24.7839 15.8194 24.8335 16 24.8335C16.1806 24.8335 16.3577 24.7839 16.512 24.69C25.125 19.395 26 14.157 26 11.95C26 9.216 23.761 7 21 7C18.239 7 16 10 16 10C16 10 13.761 7 11 7Z" stroke="red" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
                     </svg>
-                </div>
               </div>
             </div>
             <div className="shipping w-96 flex flex-col border border-black rounded-md">

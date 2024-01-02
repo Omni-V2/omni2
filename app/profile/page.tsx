@@ -3,7 +3,7 @@ import React , {useState,useEffect,useContext} from "react"
 import axios from 'axios'
 import { DataContext } from '../context';
 
-const Profile = () => {//we need to pass users as props in main directory (import {useIdentity} from '')
+const Profile = () => {
 const [photo,setPhoto]=useState<string | null>(null)
 const[userName,setUserName]=useState<string>("");
 const [email, setEmail] = useState<string>("");
@@ -36,39 +36,39 @@ const handleClickCancel = () => {
   setNewPassword('');
 };
 
-// const Cloudinary = () => {
-//   const cloudName: string = 'dcq9dwrsb';
-//   const presetName: string = 'l4ng65bl';
-//   const [image, setImage] = useState<string>('');
+const Cloudinary = () => {
+  const cloudName: string = 'dcq9dwrsb';
+  const presetName: string = 'l4ng65bl';
+  const [image, setImage] = useState<string>('');
 
-//   const handleUpload = async (file: File) => {
-//     const formData: FormData = new FormData();
-//     formData.append('file', file);
-//     formData.append('upload_preset', presetName);
+  const handleUpload = async (file: File) => {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', presetName);
 
-//     try {
-//       const response = await fetch(
-//         `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-//         {
-//           method: 'POST',
-//           body: formData,
-//         }
-//       );
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
 
-//       const data = await response.json();
-//       setImage(data.secure_url);
-//     } catch (error) {
-//       console.error('Error uploading image: ', error);
-//     }
-//   };
+      const data = await response.json();
+      setImage(data.secure_url);
+    } catch (error) {
+      console.error('Error uploading image: ', error);
+    }
+  };
 
-//   const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-//   const files = event.target.files;
-//   if (files && files.length > 0) {
-//   await handleUpload(files[0]);
-//   }
-//   };
-// }
+  const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const files = event.target.files;
+  if (files && files.length > 0) {
+  await handleUpload(files[0]);
+  }
+  };
+}
     return (
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
@@ -86,7 +86,7 @@ const handleClickCancel = () => {
                 <label className="block justfy-center space-x-6">
                   <span className="sr-only">Choose profile photo</span>
                   <input type="file" 
-                  //onChange={onChange}
+                  onChange={onChange}
                   className="block w-full justfy-center text-sm text-slate-500
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-full file:border-0
