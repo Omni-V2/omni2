@@ -19,7 +19,7 @@ interface ProductAttributes {
   UserId: number;
 }
 function ProductsDetails({data}:any) {
-  const { oneProduct,user } = useContext(DataContext);
+  const { oneProduct,user,handleAddToChartBtn } = useContext(DataContext);
   console.log("prod",oneProduct);
   
   const number = [1,2,3,4,5]
@@ -114,6 +114,7 @@ function ProductsDetails({data}:any) {
                 <button
                   id="add"
                   className="inline-flex w-40 py-1 gap-2 bg-red-500  bg-red justify-center rounded-md text-white font-poppins text-base font-medium cursor-pointer"
+                  onClick={()=>handleAddToChartBtn(user.id,oneProduct)}
                 >
                   Add To Cart
                 </button>
