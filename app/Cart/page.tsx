@@ -141,11 +141,11 @@ const Cart = () => {
 
         <div className='float-right -mt-28 mr-56  shadow border-black border rounded w-80 h-64  text-start  '>
           <h1 className='ml-5 mt-2'>Cart Total</h1>
-          <h3 className='ml-5 mt-6'>Subtotal:{calculateSubtotal()}$</h3>
+          <h3 className='ml-5 mt-6'>Subtotal:{calculateSubtotal()}TND</h3>
           <hr className='text-gray-300 w-5/6 text-center' />
-          <h3 className='ml-5 mt-6'>Shipping: 7 Dt</h3>
+          <h3 className='ml-5 mt-6'>Shipping: 7 TND</h3>
           <hr className='text-gray-300 w-5/6' />
-          <h3 className='ml-5 mt-6'>Total:{calculateSubtotal()} $</h3>
+          <h3 className='ml-5 mt-6'>Total:{calculateTotal()} TND</h3>
           <Link href={'/Cartchekout/chekout'}>
             <button 
               className='shadow border-gray-300 border rounded ml-20 bg-red text-white w-48 h-12 mt-4'
